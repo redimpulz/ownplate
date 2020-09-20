@@ -17,9 +17,14 @@
               <!-- Restaurant Profile -->
               <div class="is-inline-flex flex-center m-t-24">
                 <div>
-                  <img :src="resizedProfileImage(shopInfo, '600')" class="w-36 h-36 r-36 cover" />
+                  <img
+                    :src="resizedProfileImage(shopInfo, '600')"
+                    class="w-36 h-36 r-36 cover"
+                  />
                 </div>
-                <div class="t-h6 c-text-black-high m-l-8 flex-1">{{ shopInfo.restaurantName }}</div>
+                <div class="t-h6 c-text-black-high m-l-8 flex-1">
+                  {{ shopInfo.restaurantName }}
+                </div>
               </div>
             </div>
 
@@ -31,14 +36,18 @@
                 :to="`/admin/restaurants/${restaurantId()}/suspend`"
                 class="b-reset op-button-pill h-36 bg-form m-t-24 m-r-16"
               >
-                <i class="material-icons c-primary m-l-8">remove_shopping_cart</i>
-                <span class="c-primary t-button">{{ $t("admin.order.suspend") }}</span>
+                <i class="material-icons c-primary m-l-8">
+                  remove_shopping_cart
+                </i>
+                <span class="c-primary t-button">
+                  {{ $t("admin.order.suspend") }}
+                </span>
                 <!-- # ToDO: Show number of suspended items. -->
                 <span class="t-button c-status-red">0</span>
               </b-button>
 
               <!-- Notification Settings -->
-              <notification-index :shopInfo="shopInfo" />
+              <notification-index :shop-info="shopInfo" />
             </div>
           </div>
 
@@ -47,11 +56,16 @@
             <!-- Select Date -->
             <div class="level-left">
               <b-select v-model="dayIndex" class="m-t-24">
-                <option v-for="day in lastSeveralDays" :value="day.index" :key="day.index">
-                  {{ $d(day.date, "short") }} {{ orderCounter[moment(day.date).format("YYYY-MM-DD")] }}
-                  <span
-                    v-if="day.index === pickUpDaysInAdvance"
-                  >{{ $t("date.today") }}</span>
+                <option
+                  v-for="day in lastSeveralDays"
+                  :key="day.index"
+                  :value="day.index"
+                >
+                  {{ $d(day.date, "short") }}
+                  {{ orderCounter[moment(day.date).format("YYYY-MM-DD")] }}
+                  <span v-if="day.index === pickUpDaysInAdvance">
+                    {{ $t("date.today") }}
+                  </span>
                 </option>
               </b-select>
             </div>
@@ -76,14 +90,16 @@
             <ordered-info
               v-for="order in orders"
               :key="order.id"
-              @selected="orderSelected($event)"
               :order="order"
+              @selected="orderSelected($event)"
             />
           </div>
           <div class="m-t-24">
             <nuxt-link
               :to="`/admin/restaurants/${this.restaurantId()}/history`"
-            >{{$t("admin.order.history")}}</nuxt-link>
+            >
+              {{ $t("admin.order.history") }}
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -117,6 +133,31 @@ export default {
       order_detacher: () => {}
     };
   },
+  computed: {
+    orderCounter() {
+      return this.lastSeveralDays.reduce((tmp, day) => {
+        const count = (
+          this.$store.state.orderObj[moment(day.date).format("YYYY-MM-DD")] ||
+          []
+        ).length;
+        if (count > 0) {
+          tmp[moment(day.date).format("YYYY-MM-DD")] = "(" + count + ")";
+        }
+        return tmp;
+      }, {});
+    },
+    pickUpDaysInAdvance() {
+      return this.getPickUpDaysInAdvance();
+    },
+    lastSeveralDays() {
+      return Array.from(Array(10 + this.pickUpDaysInAdvance).keys()).map(
+        index => {
+          const date = midNight(this.pickUpDaysInAdvance - index);
+          return { index, date };
+        }
+      );
+    }
+  },
   watch: {
     dayIndex() {
       this.updateQueryDay();
@@ -145,31 +186,6 @@ export default {
   },
   destroyed() {
     this.order_detacher();
-  },
-  computed: {
-    orderCounter() {
-      return this.lastSeveralDays.reduce((tmp, day) => {
-        const count = (
-          this.$store.state.orderObj[moment(day.date).format("YYYY-MM-DD")] ||
-          []
-        ).length;
-        if (count > 0) {
-          tmp[moment(day.date).format("YYYY-MM-DD")] = "(" + count + ")";
-        }
-        return tmp;
-      }, {});
-    },
-    pickUpDaysInAdvance() {
-      return this.getPickUpDaysInAdvance();
-    },
-    lastSeveralDays() {
-      return Array.from(Array(10 + this.pickUpDaysInAdvance).keys()).map(
-        index => {
-          const date = midNight(this.pickUpDaysInAdvance - index);
-          return { index, date };
-        }
-      );
-    }
   },
   methods: {
     updateDayIndex() {

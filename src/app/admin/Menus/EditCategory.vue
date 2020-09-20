@@ -1,8 +1,14 @@
 <template>
   <b-modal :active.sync="isVisible" :width="488">
     <div class="op-dialog p-t-24 p-l-24 p-r-24 p-b-24">
-      <div style="height:16em;overflow-y:scroll;border:1px #ccc solid;border-radius:4px">
-        <div class="p-l-4 p-r-4" v-for="(category, index) in categories" :key="category">
+      <div
+        style="height:16em;overflow-y:scroll;border:1px #ccc solid;border-radius:4px"
+      >
+        <div
+          v-for="(category, index) in categories"
+          :key="category"
+          class="p-l-4 p-r-4"
+        >
           <span style="position:relative; top:10px">{{ category }}</span>
           <b-button class="b-reset h-36 m-l-8" @click="handleDelete(index)">
             <i class="material-icons c-status-red s-18 p-l-8 p-r-8">delete</i>
@@ -10,7 +16,7 @@
         </div>
       </div>
       <div class="cols m-t-16">
-        <b-input class="flex-1" placeholder="New Category" v-model="newEntry" />
+        <b-input v-model="newEntry" class="flex-1" placeholder="New Category" />
         <b-button
           :disabled="!isValidEntry"
           class="b-reset m-l-8 op-button-pill h-36 bg-form"
@@ -41,16 +47,6 @@ export default {
       newEntry: ""
     };
   },
-  created() {
-    console.log("***", this.restaurantInfo);
-  },
-  watch: {
-    isVisible(newValue) {
-      if (!newValue) {
-        this.$emit("dismissed");
-      }
-    }
-  },
   computed: {
     isValidEntry() {
       if (this.newEntry === "") {
@@ -61,6 +57,16 @@ export default {
     categories() {
       return this.restaurantInfo[this.categoryKey] || [];
     }
+  },
+  watch: {
+    isVisible(newValue) {
+      if (!newValue) {
+        this.$emit("dismissed");
+      }
+    }
+  },
+  created() {
+    console.log("***", this.restaurantInfo);
   },
   methods: {
     handleAdd() {

@@ -20,14 +20,19 @@
               <!-- Restaurant Profile -->
               <div class="is-inline-flex flex-center m-l-16 m-t-24">
                 <div>
-                  <img :src="resizedProfileImage(shopInfo, '600')" class="w-36 h-36 r-36 cover" />
+                  <img
+                    :src="resizedProfileImage(shopInfo, '600')"
+                    class="w-36 h-36 r-36 cover"
+                  />
                 </div>
-                <div class="t-h6 c-text-black-high m-l-8 flex-1">{{ shopInfo.restaurantName }}</div>
+                <div class="t-h6 c-text-black-high m-l-8 flex-1">
+                  {{ shopInfo.restaurantName }}
+                </div>
               </div>
             </div>
             <!-- Notification Settings -->
             <div class="level-right">
-              <notification-index :shopInfo="shopInfo" />
+              <notification-index :shop-info="shopInfo" />
             </div>
           </div>
         </div>
@@ -50,7 +55,9 @@
                 <div
                   v-if="lineUsers.length > 0"
                   class="t-h6 c-text-black-disabled"
-                >{{$t("admin.order.lineUsers")}}</div>
+                >
+                  {{ $t("admin.order.lineUsers") }}
+                </div>
                 <!-- LINE User -->
                 <div
                   v-for="lineUser in lineUsers"
@@ -64,14 +71,22 @@
                   >
                     <!-- Enabled -->
                     <div v-if="lineUser.notify" class="cols flex-1">
-                      <i class="material-icons m-r-8 c-status-green">check_box</i>
-                      <span class="t-subtitle1 c-text-black-high">{{ lineUser.displayName }}</span>
+                      <i class="material-icons m-r-8 c-status-green">
+                        check_box
+                      </i>
+                      <span class="t-subtitle1 c-text-black-high">
+                        {{ lineUser.displayName }}
+                      </span>
                     </div>
 
                     <!-- Disabled -->
                     <div v-else class="cols flex-1">
-                      <i class="material-icons m-r-8 c-text-black-disabled">check_box_outline_blank</i>
-                      <span class="t-subtitle1 c-text-black-disabled">{{ lineUser.displayName }}</span>
+                      <i class="material-icons m-r-8 c-text-black-disabled">
+                        check_box_outline_blank
+                      </i>
+                      <span class="t-subtitle1 c-text-black-disabled">
+                        {{ lineUser.displayName }}
+                      </span>
                     </div>
                   </div>
 
@@ -92,21 +107,22 @@
                   style="background:#18b900"
                   @click="handleLineAuth"
                 >
-                  <i class="fab fa-line c-text-white-full m-l-24 m-r-8" style="font-size:24px" />
+                  <i
+                    class="fab fa-line c-text-white-full m-l-24 m-r-8"
+                    style="font-size:24px"
+                  />
                   <span class="c-text-white-full m-r-24">
-                    {{
-                    $t("admin.order.lineAdd")
-                    }}
+                    {{ $t("admin.order.lineAdd") }}
                   </span>
                 </b-button>
               </div>
 
               <!-- Note for Safari Private Browsing Mode -->
-              <div class="bg-form r-8 p-l-16 p-r-16 p-t-16 p-b-16 m-t-24 align-left">
+              <div
+                class="bg-form r-8 p-l-16 p-r-16 p-t-16 p-b-16 m-t-24 align-left"
+              >
                 <span class="t-body2 c-text-black-medium">
-                  {{
-                  $t("admin.order.lineSafariPrivate")
-                  }}
+                  {{ $t("admin.order.lineSafariPrivate") }}
                 </span>
               </div>
             </div>

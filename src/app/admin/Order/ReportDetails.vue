@@ -1,24 +1,27 @@
 <template>
   <div>
-    <div v-if="!hideTable" class="m-t-24 bg-surface r-8 d-low p-l-16 p-r-16 p-t-16 p-b-16">
+    <div
+      v-if="!hideTable"
+      class="m-t-24 bg-surface r-8 d-low p-l-16 p-r-16 p-t-16 p-b-16"
+    >
       <table class="w-full">
         <tr>
-          <th
-            class="p-l-8 p-b-8"
-            v-for="(field, index) in fields"
-            :key="field"
-          >{{ fieldNames[index] }}</th>
+          <th v-for="(field, index) in fields" :key="field" class="p-l-8 p-b-8">
+            {{ fieldNames[index] }}
+          </th>
         </tr>
         <tr v-for="row in tableData" :key="row.id">
-          <td v-for="field in fields" :key="field">{{ row[field ]}}</td>
+          <td v-for="field in fields" :key="field">
+            {{ row[field] }}
+          </td>
         </tr>
       </table>
     </div>
     <download-csv
       :data="tableData"
       :fields="fields"
-      :fieldNames="fieldNames"
-      :fileName="fileName"
+      :field-names="fieldNames"
+      :file-name="fileName"
       :formulas="formulas"
     >
       <b-button class="m-t-16 b-reset h-36 r-36 bg-form">
@@ -56,9 +59,6 @@ export default {
       required: false,
       default: false
     }
-  },
-  mounted() {
-    //console.log("***", this.orders);
   },
   computed: {
     formulas() {
@@ -124,6 +124,9 @@ export default {
       //console.log(items);
       return items;
     }
+  },
+  mounted() {
+    //console.log("***", this.orders);
   }
 };
 </script>

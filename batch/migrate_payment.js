@@ -8,9 +8,13 @@ const project = process.env.PROJECT || "ownplate-dev";
 console.log(`project: ${project}`);
 
 const main = async () => {
-  const fRun = (process.argv[2] === "--doit")
-  console.log(fRun ? "Doing it" : "Dry run (add '--doit' option to really do it)")
-  const serviceAccount = await import(`./keys/${project}-firebase-adminsdk.json`);
+  const fRun = process.argv[2] === "--doit";
+  console.log(
+    fRun ? "Doing it" : "Dry run (add '--doit' option to really do it)"
+  );
+  const serviceAccount = await import(
+    `./keys/${project}-firebase-adminsdk.json`
+  );
 
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -28,7 +32,8 @@ const main = async () => {
       const stripe = (await tx.get(refStripe)).data(); // old data
       if (stripe) {
         const payment = (await tx.get(refPayment)).data(); // new data
-        if (!payment) { // no need to migrate twice
+        if (!payment) {
+          // no need to migrate twice
           const newData = {
             stripe: stripe.stripeAccount,
             inStore: false
@@ -40,10 +45,10 @@ const main = async () => {
         }
         // Note: We are NOT deleting old data
       }
-    })
+    });
   });
   await Promise.all(promisses);
-  console.log("Note: This migration code is safe to run more than once")
+  console.log("Note: This migration code is safe to run more than once");
 
   process.exit(0);
 };

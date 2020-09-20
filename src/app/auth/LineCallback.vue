@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="t-h6 c-text-black-disabled align-center m-t-24">{{ $t('line.authenticating')}}</div>
+    <div class="t-h6 c-text-black-disabled align-center m-t-24">
+      {{ $t("line.authenticating") }}
+    </div>
     <b-loading :is-full-page="false" :active="isValidating"></b-loading>
   </div>
 </template>
@@ -16,6 +18,14 @@ export default {
     return {
       isValidating: false
     };
+  },
+  computed: {
+    code() {
+      return this.$route.query.code;
+    },
+    redirect_uri() {
+      return location.origin + "/callback/line";
+    }
   },
   async mounted() {
     if (this.code) {
@@ -64,14 +74,6 @@ export default {
       } finally {
         this.isValidating = false;
       }
-    }
-  },
-  computed: {
-    code() {
-      return this.$route.query.code;
-    },
-    redirect_uri() {
-      return location.origin + "/callback/line";
     }
   }
 };

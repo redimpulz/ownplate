@@ -216,7 +216,10 @@ export const reservationTheDayBefore = [
   { messageKey: "editRestaurant.reservationTheDaysBefore.six", value: 6 },
   { messageKey: "editRestaurant.reservationTheDaysBefore.seven", value: 7 },
   { messageKey: "editRestaurant.reservationTheDaysBefore.twoWeeks", value: 14 },
-  { messageKey: "editRestaurant.reservationTheDaysBefore.threeWeeks", value: 21 }
+  {
+    messageKey: "editRestaurant.reservationTheDaysBefore.threeWeeks",
+    value: 21
+  }
 ];
 
 export const minimumCookTimeChoices = [
@@ -225,7 +228,10 @@ export const minimumCookTimeChoices = [
   { messageKey: "editRestaurant.minimumCookTime.twoHours", value: 120 },
   { messageKey: "editRestaurant.minimumCookTime.oneDay", value: 60 * 24 },
   { messageKey: "editRestaurant.minimumCookTime.twoDays", value: 60 * 24 * 2 },
-  { messageKey: "editRestaurant.minimumCookTime.threeDays", value: 60 * 24 * 3 },
+  {
+    messageKey: "editRestaurant.minimumCookTime.threeDays",
+    value: 60 * 24 * 3
+  },
   { messageKey: "editRestaurant.minimumCookTime.fourDays", value: 60 * 24 * 4 },
   { messageKey: "editRestaurant.minimumCookTime.fiveDays", value: 60 * 24 * 5 },
   { messageKey: "editRestaurant.minimumCookTime.sixDays", value: 60 * 24 * 6 }
@@ -263,7 +269,7 @@ export const regionalSettings = {
       ja: "日本語"
     },
     covid19trace: false,
-    hashTag: "ownplate",
+    hashTag: "ownplate"
   },
   JP: {
     CurrencyKey: "JPY",
@@ -299,7 +305,7 @@ export const regionalSettings = {
       en: "English (US)"
     },
     covid19trace: true,
-    hashTag: "omochikaeri",
+    hashTag: "omochikaeri"
   },
   EU: {
     CurrencyKey: "EUR",
@@ -336,7 +342,7 @@ export const regionalSettings = {
       ja: "日本語"
     },
     covid19trace: false,
-    hashTag: "ownplate",
+    hashTag: "ownplate"
   }
 };
 
@@ -371,4 +377,5 @@ export const soundFiles = [
   }
 ];
 
-export const twiml_neworder = '<Response><Say language="ja-jp">こんにちは。わたしは、おもちかえりどっとこむです。あたらしいオーダーが入りました。かくにんをよろしくおねがいいたします。</Say></Response>';
+export const twiml_neworder =
+  '<Response><Say language="ja-jp">こんにちは。わたしは、おもちかえりどっとこむです。あたらしいオーダーが入りました。かくにんをよろしくおねがいいたします。</Say></Response>';

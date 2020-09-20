@@ -2,8 +2,8 @@ import { ownPlateConfig } from "./src/config/project";
 import { regionalSettings } from "./src/plugins/constant";
 import { defaultHeader } from "./src/plugins/header";
 
-require('dotenv').config();
-import { customRoutes } from './src/routes';
+require("dotenv").config();
+import { customRoutes } from "./src/routes";
 
 const hostName = ownPlateConfig.hostName;
 
@@ -21,7 +21,7 @@ export default {
       customRoutes.map(route => {
         const r = setComponent(route, resolve);
         if (r.children) {
-          r.children = r.children.map((child) => {
+          r.children = r.children.map(child => {
             return setComponent(child, resolve);
           });
         }
@@ -45,17 +45,17 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~plugins/buefy.js',
-    '~plugins/social.js',
-    '~plugins/croppa.js',
-    '~plugins/clipboard2.js',
-    '~plugins/qrcode.js',
+    "~plugins/buefy.js",
+    "~plugins/social.js",
+    "~plugins/croppa.js",
+    "~plugins/clipboard2.js",
+    "~plugins/qrcode.js",
     // { src: "~/plugins/localStorage.js", ssr: false },
     { src: "~/plugins/userPermission.js", ssr: false },
     { src: "~/plugins/utils.js", ssr: false },
     // "~/plugins/mock.js"
-    '~plugins/vue-i18n.js',
-    '~plugins/sentry.js'
+    "~plugins/vue-i18n.js",
+    "~plugins/sentry.js"
   ],
   /*
    ** Nuxt.js dev-modules
@@ -70,22 +70,25 @@ export default {
   modules: [
     // Doc: https://buefy.github.io/#/documentation
     //"nuxt-buefy",
-    '@nuxtjs/dotenv',
+    "@nuxtjs/dotenv",
     "@nuxtjs/style-resources",
     "@nuxtjs/axios",
-    ['nuxt-gmaps', {
-      key: process.env.GAPIKey,
-    }],
+    [
+      "nuxt-gmaps",
+      {
+        key: process.env.GAPIKey
+      }
+    ]
   ],
   env: {
     STRIPE_API_KEY: process.env.STRIPE_API_KEY,
     STRIPE_CLIENT_ID: process.env.STRIPE_CLIENT_ID,
     gapikey: process.env.GAPIKey,
-    CIRCLE_SHA1: process.env.CIRCLE_SHA1,
+    CIRCLE_SHA1: process.env.CIRCLE_SHA1
   },
   styleResources: {
     scss: [
-      "~/assets/scss/main.scss",
+      "~/assets/scss/main.scss"
       // "~/assets/web-grid-master/dist/web-grid.css"
       // "~/assets/iota/iota.scss"
     ]
@@ -98,7 +101,7 @@ export default {
      ** You can extend webpack config here
      */
     extend(config, ctx) {
-      config.devtool = 'eval-source-map';
+      config.devtool = "eval-source-map";
     },
     babel: {
       presets: [

@@ -1,16 +1,16 @@
 <template>
   <div>
     <div class="t-subtitle2 c-text-black-medium p-b-8">
-      {{$t(titleKey)}}
-      <span class="c-status-red" v-if="required === true">*</span>
+      {{ $t(titleKey) }}
+      <span v-if="required === true" class="c-status-red">*</span>
     </div>
     <b-field :type="error.length > 0 ? 'is-danger' : 'is-success'">
       <b-input
         :value="value"
         :type="type"
         :placeholder="$t(placeholder)"
-        @input="input"
         :maxlength="maxlength"
+        @input="input"
       ></b-input>
     </b-field>
   </div>

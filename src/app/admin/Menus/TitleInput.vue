@@ -6,8 +6,8 @@
         <b-input
           ref="textInput"
           v-model="title.name"
-          @blur="blur"
           :placeholder="$t('editTitle.enterCategory')"
+          @blur="blur"
         ></b-input>
       </b-field>
     </div>
@@ -18,44 +18,44 @@
         <div class="flex-1">
           <!-- Position Up -->
           <b-button
-            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             v-if="position !== 'first'"
+            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             @click="positionUp"
           >
-            <i class="material-icons c-primary s-18 p-l-8 p-r-8"
-              >arrow_upward</i
-            >
+            <i class="material-icons c-primary s-18 p-l-8 p-r-8">
+              >arrow_upward
+            </i>
           </b-button>
           <!-- Disable if First -->
           <b-button
+            v-else
             class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             disabled
-            v-else
           >
-            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8"
-              >arrow_upward</i
-            >
+            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8">
+              >arrow_upward
+            </i>
           </b-button>
 
           <!-- Position Down -->
           <b-button
-            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             v-if="position !== 'last'"
+            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             @click="positionDown"
           >
-            <i class="material-icons c-primary s-18 p-l-8 p-r-8"
-              >arrow_downward</i
-            >
+            <i class="material-icons c-primary s-18 p-l-8 p-r-8">
+              >arrow_downward
+            </i>
           </b-button>
           <!-- Disable if Last -->
           <b-button
+            v-else
             class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             disabled
-            v-else
           >
-            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8"
-              >arrow_downward</i
-            >
+            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8">
+              >arrow_downward
+            </i>
           </b-button>
 
           <!-- Duplicate -->

@@ -2,11 +2,15 @@
   <section class="section">
     <back-button url="/s/admins" />
     <h1>Admin</h1>
-    {{admin.name}}, {{adminPrivate.email}}
+    {{ admin.name }}, {{ adminPrivate.email }}
     <h1>Custome Claims</h1>
     <div>
-      <b-checkbox v-model="isAdmin" disabled>Admin</b-checkbox>
-      <b-checkbox v-model="isOperator">Operator</b-checkbox>
+      <b-checkbox v-model="isAdmin" disabled>
+        Admin
+      </b-checkbox>
+      <b-checkbox v-model="isOperator">
+        Operator
+      </b-checkbox>
     </div>
     <h1>Restaurants</h1>
     <div v-for="restaurant in restaurants" :key="restaurant.id">
@@ -29,7 +33,7 @@ export default {
       customClaims: {},
       restaurants: [],
       admin: {},
-      adminPrivate: {},
+      adminPrivate: {}
     };
   },
   computed: {
@@ -79,9 +83,9 @@ export default {
     console.log(this.restaurants);
 
     const adminPrivateSnapshot = await db
-          .doc("/admins/" + this.adminId + "/private/profile").get();
-    const adminSnapshot = await db
-          .doc("/admins/" + this.adminId).get();
+      .doc("/admins/" + this.adminId + "/private/profile")
+      .get();
+    const adminSnapshot = await db.doc("/admins/" + this.adminId).get();
     if (adminPrivateSnapshot.exists) {
       this.adminPrivate = adminPrivateSnapshot.data();
     }

@@ -1,18 +1,23 @@
 <template>
   <div>
     <div class="t-subtitle2 c-text-black-medium p-b-8">
-      {{$t(this.state_key)}}
+      {{ $t(this.state_key) }}
       <span class="c-status-red">*</span>
     </div>
     <b-field
-      :type="errors['state'].length > 0 ? 'is-danger' : 'is-success'"
       v-if="Array.isArray(states)"
+      :type="errors['state'].length > 0 ? 'is-danger' : 'is-success'"
     >
       <b-select :value="value" placeholder="select" @input="input">
-        <option v-for="stateItem in states" :key="stateItem">{{ stateItem }}</option>
+        <option v-for="stateItem in states" :key="stateItem">
+          {{ stateItem }}
+        </option>
       </b-select>
     </b-field>
-    <b-field :type="errors['state'].length > 0 ? 'is-danger' : 'is-success'" v-else>
+    <b-field
+      v-else
+      :type="errors['state'].length > 0 ? 'is-danger' : 'is-success'"
+    >
       <b-input
         :value="value"
         type="text"
@@ -36,11 +41,6 @@ export default {
       required: true
     }
   },
-  methods: {
-    input(e) {
-      this.$emit("input", e);
-    }
-  },
   data() {
     return {
       states: [],
@@ -50,6 +50,11 @@ export default {
   created() {
     this.states = this.regionalSetting.AddressStates;
     this.state_key = this.regionalSetting.StateKey || "shopInfo.state";
+  },
+  methods: {
+    input(e) {
+      this.$emit("input", e);
+    }
   }
 };
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <nuxt-link :to="`/r/${restaurant.id}`">{{restaurant.restaurantName}}</nuxt-link>
+  <nuxt-link :to="`/r/${restaurant.id}`">
+    {{ restaurant.restaurantName }}
+  </nuxt-link>
 </template>
 
 <script>

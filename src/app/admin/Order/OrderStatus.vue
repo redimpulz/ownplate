@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="op-status" :class="statusKey">{{ $t("order.status." + statusKey) }}</div>
+    <div class="op-status" :class="statusKey">
+      {{ $t("order.status." + statusKey) }}
+    </div>
   </div>
 </template>
 

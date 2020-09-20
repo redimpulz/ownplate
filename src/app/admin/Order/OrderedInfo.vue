@@ -4,8 +4,8 @@
       <!-- For Admin -->
       <div
         v-if="!restaurant"
-        @click="$emit('selected', order)"
         class="touchable bg-surface r-8 d-low p-l-16 p-r-16 p-t-16 p-b-16"
+        @click="$emit('selected', order)"
       >
         <div class="cols flex-center">
           <!-- Order Status -->
@@ -14,47 +14,59 @@
           </div>
 
           <!-- Time Stamp -->
-          <div class="t-caption c-text-black-medium align-right flex-1">{{ timestamp || "0:00pm"}}</div>
+          <div class="t-caption c-text-black-medium align-right flex-1">
+            {{ timestamp || "0:00pm" }}
+          </div>
         </div>
 
         <div class="cols flex-center m-t-8">
           <!-- Order ID -->
-          <div class="t-h6 c-text-black-high">{{ orderName }}</div>
+          <div class="t-h6 c-text-black-high">
+            {{ orderName }}
+          </div>
 
           <!-- User Name/Phone -->
           <div class="t-body1 c-text-black-medium align-right flex-1">
-            <div class="is-inline-block m-r-8" v-if="order.name">{{ order.name }}</div>
-            <div class="is-inline-block" v-if="!order.name && phoneNumber">{{ nationalPhoneNumber }}</div>
+            <div v-if="order.name" class="is-inline-block m-r-8">
+              {{ order.name }}
+            </div>
+            
+            <div v-if="!order.name && phoneNumber" class="is-inline-block">
+              {{ nationalPhoneNumber }}
+            </div>
           </div>
         </div>
 
         <div class="cols flex-center m-t-8">
           <!-- Order Count -->
-          <div
-            class="t-body2 c-text-black-medium m-r-8"
-          >{{$tc('sitemenu.orderCounter', totalCount, {count: totalCount})}}</div>
+          <div class="t-body2 c-text-black-medium m-r-8">
+            {{
+              $tc("sitemenu.orderCounter", totalCount, { count: totalCount })
+            }}
+          </div>
 
           <!-- Total -->
-          <div class="t-body2 c-text-black-high m-r-8">{{ $n(order.totalCharge, 'currency') }}</div>
+          <div class="t-body2 c-text-black-high m-r-8">
+            {{ $n(order.totalCharge, "currency") }}
+          </div>
 
           <!-- Stripe Status -->
           <div v-if="hasStripe" class="m-r-8">
-            <i :class="'fab fa-cc-stripe stripe_'+order.payment.stripe"></i>
+            <i :class="'fab fa-cc-stripe stripe_' + order.payment.stripe"></i>
           </div>
 
           <!-- Tip -->
-          <div
-            v-if="order.tip"
-            class="t-caption c-status-green"
-          >( {{$t('order.includingTip')}} {{ $n(order.tip, 'currency') }} )</div>
+          <div v-if="order.tip" class="t-caption c-status-green">
+            ( {{ $t("order.includingTip") }} {{ $n(order.tip, "currency") }} )
+          </div>
         </div>
       </div>
 
       <!-- For User -->
       <div
         v-if="restaurant"
-        @click="$emit('selected', order)"
         class="touchable bg-surface r-8 d-low p-l-16 p-r-16 p-t-16 p-b-16"
+        @click="$emit('selected', order)"
       >
         <div class="cols flex-center">
           <!-- Order Status -->
@@ -63,34 +75,52 @@
           </div>
 
           <!-- Time Stamp -->
-          <div class="t-caption c-text-black-medium align-right flex-1">{{ timestamp || "0:00pm"}}</div>
+          <div class="t-caption c-text-black-medium align-right flex-1">
+            {{ timestamp || "0:00pm" }}
+          </div>
         </div>
 
         <div class="cols flex-center m-t-8">
           <!-- Restaurant Profile -->
           <div class="m-r-8">
-            <img :src="resizedProfileImage(restaurant, '600')" class="w-48 h-48 r-48 cover" />
+            <img
+              :src="resizedProfileImage(restaurant, '600')"
+              class="w-48 h-48 r-48 cover"
+            />
           </div>
 
           <div class="flex-1">
             <!-- Restaurant Name -->
-            <div class="t-body1 c-text-black-high">{{restaurant.restaurantName}}</div>
+            <div class="t-body1 c-text-black-high">
+              {{ restaurant.restaurantName }}
+            </div>
             <div class="cols flex-center">
               <!-- Order Count -->
-              <div
-                class="t-body2 c-text-black-medium m-r-8"
-              >{{$tc('sitemenu.orderCounter', totalCount, {count: totalCount})}}</div>
+              <div class="t-body2 c-text-black-medium m-r-8">
+                {{
+                  $tc("sitemenu.orderCounter", totalCount, {
+                    count: totalCount
+                  })
+                }}
+              </div>
 
               <!-- Total -->
-              <div class="t-body2 c-text-black-high m-r-8">{{ $n(order.totalCharge, 'currency') }}</div>
+              <div class="t-body2 c-text-black-high m-r-8">
+                {{ $n(order.totalCharge, "currency") }}
+              </div>
 
               <!-- Stripe Status -->
               <div>
-                <i v-if="hasStripe" :class="'fab fa-cc-stripe stripe_'+order.payment.stripe"></i>
+                <i
+                  v-if="hasStripe"
+                  :class="'fab fa-cc-stripe stripe_' + order.payment.stripe"
+                ></i>
               </div>
 
               <!-- Order ID -->
-              <div class="t-body2 c-text-black-high flex-1 align-right">{{ orderName }}</div>
+              <div class="t-body2 c-text-black-high flex-1 align-right">
+                {{ orderName }}
+              </div>
             </div>
           </div>
         </div>
@@ -109,11 +139,6 @@ export default {
   components: {
     OrderStatus
   },
-  data() {
-    return {
-      restaurant: null
-    };
-  },
   props: {
     order: {
       type: Object,
@@ -124,13 +149,10 @@ export default {
       required: false
     }
   },
-  async created() {
-    if (this.order.restaurantId) {
-      const snapshot = await db
-        .doc(`restaurants/${this.order.restaurantId}`)
-        .get();
-      this.restaurant = snapshot.data();
-    }
+  data() {
+    return {
+      restaurant: null
+    };
   },
   computed: {
     hasStripe() {
@@ -162,6 +184,14 @@ export default {
         }, 0);
       }
       return 0;
+    }
+  },
+  async created() {
+    if (this.order.restaurantId) {
+      const snapshot = await db
+        .doc(`restaurants/${this.order.restaurantId}`)
+        .get();
+      this.restaurant = snapshot.data();
     }
   },
   mounted() {}

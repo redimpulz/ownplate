@@ -4,17 +4,21 @@
     <h2>All Callbacks</h2>
     <div v-for="log in logs" :key="log.id">
       <router-link :to="`/s/callbacks/${log.uid}/${log.id}`">
-        {{moment(log.created.toDate()).format("YYYY-MM-DD hh:mm")}}/{{log.uid || log.data.uid}}/{{stripeActionStrings[log.action]}}
+        {{ moment(log.created.toDate()).format("YYYY-MM-DD hh:mm") }}/{{
+          log.uid || log.data.uid
+        }}/{{ stripeActionStrings[log.action] }}
       </router-link>
     </div>
-    <button @click="nextLoad">next</button>
+    <button @click="nextLoad">
+      next
+    </button>
   </section>
 </template>
 
 <script>
 import BackButton from "~/components/BackButton";
 import { db } from "~/plugins/firebase.js";
-import { stripeActionStrings } from "~/plugins/stripe"
+import { stripeActionStrings } from "~/plugins/stripe";
 export default {
   components: {
     BackButton
@@ -24,7 +28,7 @@ export default {
       logs: [],
       detacher: null,
       stripeActionStrings,
-      last: null,
+      last: null
     };
   },
   async mounted() {
@@ -44,12 +48,17 @@ export default {
         });
       });
   },
+  destroyed() {
+    this.detatcher && this.detatcher();
+  },
   methods: {
     async nextLoad() {
-      const nextData = await db.collectionGroup("stripeLogs")
+      const nextData = await db
+        .collectionGroup("stripeLogs")
         .orderBy("created", "desc")
         .startAfter(this.last)
-        .limit(100).get();
+        .limit(100)
+        .get();
       if (!nextData.empty) {
         nextData.docs.forEach(doc => {
           this.last = doc;
@@ -58,11 +67,7 @@ export default {
           this.logs.push(log);
         });
       }
-
     }
-  },
-  destroyed() {
-    this.detatcher && this.detatcher();
-  },
-}
+  }
+};
 </script>

@@ -5,11 +5,13 @@
     <ordered-info
       v-for="order in orders"
       :key="order.id"
-      :isSuperView="true"
-      @selected="orderSelected($event)"
+      :is-super-view="true"
       :order="order"
+      @selected="orderSelected($event)"
     />
-    <button @click="nextLoad">next</button>
+    <button @click="nextLoad">
+      next
+    </button>
   </section>
 </template>
 
@@ -21,11 +23,11 @@ import OrderedInfo from "~/app/admin/Order/OrderedInfo";
 import superMixin from "./SuperMixin";
 
 export default {
-  mixins: [superMixin],
   components: {
     OrderedInfo,
     BackButton
   },
+  mixins: [superMixin],
   data() {
     return {
       orders: [],

@@ -2,7 +2,7 @@
   <div class="bg-surface r-8 d-low m-t-8 p-b-24">
     <!-- Order Items -->
     <template v-for="orderItem in orderItems">
-      <order-item :orderItem="orderItem" :key="orderItem.key"></order-item>
+      <order-item :key="orderItem.key" :order-item="orderItem"></order-item>
     </template>
 
     <hr class="devider m-t-16 m-b-0 m-l-16 m-r-16" />
@@ -13,10 +13,14 @@
       <div class="p-t-16 p-l-16 p-r-16">
         <div class="cols">
           <div class="flex-1">
-            <div class="t-body1 c-text-black-high">{{$t('order.subtotal')}}</div>
+            <div class="t-body1 c-text-black-high">
+              {{ $t("order.subtotal") }}
+            </div>
           </div>
           <div class="align-righ">
-            <span class="t-body1 c-text-black-high">{{$n(orderInfo.sub_total, 'currency')}}</span>
+            <span class="t-body1 c-text-black-high">
+              {{ $n(orderInfo.sub_total, "currency") }}
+            </span>
           </div>
         </div>
       </div>
@@ -25,31 +29,46 @@
       <div class="p-t-8 p-l-16 p-r-16">
         <div class="cols">
           <div class="flex-1">
-            <div
-              class="t-body1 c-text-black-high"
-            >{{$t(orderInfo.inclusiveTax ? 'order.inclusiveTax':'order.salesTax')}}</div>
+            <div class="t-body1 c-text-black-high">
+              {{
+                $t(
+                  orderInfo.inclusiveTax
+                    ? "order.inclusiveTax"
+                    : "order.salesTax"
+                )
+              }}
+            </div>
           </div>
           <div class="align-righ">
-            <span class="t-body1 c-text-black-high">{{$n(orderInfo.tax, 'currency')}}</span>
+            <span class="t-body1 c-text-black-high">
+              {{ $n(orderInfo.tax, "currency") }}
+            </span>
           </div>
         </div>
       </div>
 
       <!-- Total -->
-      <div v-if="false && regionTip.choices.length > 0" class="p-t-8 p-l-16 p-r-16">
+      <div
+        v-if="false && regionTip.choices.length > 0"
+        class="p-t-8 p-l-16 p-r-16"
+      >
         <div class="cols">
           <div class="flex-1">
-            <div class="t-body1 c-text-black-high">{{$t('order.total')}}</div>
+            <div class="t-body1 c-text-black-high">
+              {{ $t("order.total") }}
+            </div>
           </div>
           <div class="align-righ">
-            <span class="t-body1 c-text-black-high">{{$n(orderInfo.total, 'currency')}}</span>
+            <span class="t-body1 c-text-black-high">
+              {{ $n(orderInfo.total, "currency") }}
+            </span>
           </div>
         </div>
       </div>
 
       <hr
+        v-if="regionTip.choices.length > 0 && isTipEditable"
         class="devider m-t-16 m-b-0 m-l-16 m-r-16"
-        v-if="(regionTip.choices.length > 0) && isTipEditable"
       />
 
       <!-- Tip -->
@@ -59,10 +78,14 @@
       >
         <div class="cols">
           <div class="flex-1">
-            <div class="t-body1 c-text-black-high">{{$t('order.tip')}}</div>
+            <div class="t-body1 c-text-black-high">
+              {{ $t("order.tip") }}
+            </div>
           </div>
           <div class="align-righ">
-            <span class="t-body1 c-text-black-high">{{$n(tip, 'currency')}}</span>
+            <span class="t-body1 c-text-black-high">
+              {{ $n(tip, "currency") }}
+            </span>
           </div>
         </div>
       </div>
@@ -72,24 +95,26 @@
         <div v-if="isTipEditable">
           <div>
             <b-input
+              v-model="tip"
               class="w-full"
               type="number"
-              :placeholder="$t('order.maxTip', {max:regionTip.max})"
+              :placeholder="$t('order.maxTip', { max: regionTip.max })"
               :step="tipStep"
-              v-model="tip"
-              v-on:input="handleTipInput"
               maxlength="30"
               style
+              @input="handleTipInput"
             />
           </div>
           <div>
             <b-button
               v-for="ratio in regionTip.choices"
-              class="m-t-8 m-r-8 bg-form"
-              @click="updateTip(ratio)"
-              :type="isSameAmount(ratio) ? 'is-primary' : ''"
               :key="ratio"
-            >{{ ratio + "%" }}</b-button>
+              class="m-t-8 m-r-8 bg-form"
+              :type="isSameAmount(ratio) ? 'is-primary' : ''"
+              @click="updateTip(ratio)"
+            >
+              {{ ratio + "%" }}
+            </b-button>
           </div>
         </div>
       </div>
@@ -100,10 +125,14 @@
       <div class="p-t-24 p-l-16 p-r-16">
         <div class="cols">
           <div class="flex-1">
-            <div class="t-h6 c-status-green">{{$t('order.totalCharge')}}</div>
+            <div class="t-h6 c-status-green">
+              {{ $t("order.totalCharge") }}
+            </div>
           </div>
           <div class="align-righ">
-            <span class="t-h6 c-status-green">{{$n(orderInfo.total + Number(tip), 'currency')}}</span>
+            <span class="t-h6 c-status-green">
+              {{ $n(orderInfo.total + Number(tip), "currency") }}
+            </span>
           </div>
         </div>
       </div>
@@ -117,6 +146,9 @@ import OrderItem from "~/app/user/Order/OrderItem";
 
 export default {
   name: "Order",
+  components: {
+    OrderItem
+  },
 
   props: {
     orderItems: {
@@ -133,22 +165,6 @@ export default {
       tip: ""
     };
   },
-  watch: {
-    orderInfo() {
-      console.log("orderInfo changed", this.orderInfo.total);
-      if (this.isTipEditable) {
-        if (this.tip === "" && this.regionTip.default === 0) {
-          return; // display the placeholder
-        }
-        this.updateTip(this.regionTip.default);
-      } else {
-        this.tip = this.orderInfo.tip;
-      }
-    }
-  },
-  components: {
-    OrderItem
-  },
   computed: {
     regionTip() {
       return this.$store.getters.stripeRegion.tip;
@@ -164,6 +180,19 @@ export default {
     },
     maxTip() {
       return this.calcTip(this.regionTip.max);
+    }
+  },
+  watch: {
+    orderInfo() {
+      console.log("orderInfo changed", this.orderInfo.total);
+      if (this.isTipEditable) {
+        if (this.tip === "" && this.regionTip.default === 0) {
+          return; // display the placeholder
+        }
+        this.updateTip(this.regionTip.default);
+      } else {
+        this.tip = this.orderInfo.tip;
+      }
     }
   },
   methods: {

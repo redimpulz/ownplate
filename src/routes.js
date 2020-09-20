@@ -178,8 +178,8 @@ export const customRoutes = [
     component: "super/AdminInfo.vue"
   },
   {
-    path: '/s/requests',
-    component: 'super/AllRequests.vue'
+    path: "/s/requests",
+    component: "super/AllRequests.vue"
   },
   {
     path: "/s/callbacks",

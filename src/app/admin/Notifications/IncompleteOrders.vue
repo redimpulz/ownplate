@@ -1,21 +1,31 @@
 <template>
   <div>
-    <div
-      class="t-subtitle2 c-text-black-medium m-t-16"
-      >{{ $t("admin.order.incompleteOrders") }}</div>
+    <div class="t-subtitle2 c-text-black-medium m-t-16">
+      >
+      {{ $t("admin.order.incompleteOrders") }}
+    </div>
     <!-- Links for Incomplete Orders Date -->
     <div>
       <!-- # Show latest date first -->
       <!-- # Make Red Color for Today -->
       <router-link
-        :class="`op-button-pill ${index === 0 ? 'bg-status-red-bg' : 'bg-form'} m-t-8 m-r-8`"
-        :to="`/admin/restaurants/${restaurantId()}/orders?day=${moment(day.date).format('YYYY-MM-DD')}`"
         v-for="(day, index) in lastSeveralDays"
         :key="day.index"
-        >
+        :class="
+          `op-button-pill ${
+            index === 0 ? 'bg-status-red-bg' : 'bg-form'
+          } m-t-8 m-r-8`
+        "
+        :to="
+          `/admin/restaurants/${restaurantId()}/orders?day=${moment(
+            day.date
+          ).format('YYYY-MM-DD')}`
+        "
+      >
         <!-- # Link to the date -->
         <span :class="`t-button ${index === 0 ? 'c-status-red' : 'c-primary'}`">
-          {{$d(day.date, "short")}} {{index === 0 ? '本日' : ''}} - {{ orderCounter[moment(day.date).format("YYYY-MM-DD")] }}
+          {{ $d(day.date, "short") }} {{ index === 0 ? "本日" : "" }} -
+          {{ orderCounter[moment(day.date).format("YYYY-MM-DD")] }}
         </span>
       </router-link>
 
@@ -30,7 +40,7 @@ import moment from "moment";
 
 export default {
   props: {
-    shopInfo: Object,
+    shopInfo: Object
   },
   computed: {
     orderCounter() {
@@ -47,12 +57,10 @@ export default {
       return this.getPickUpDaysInAdvance();
     },
     lastSeveralDays() {
-      return Array.from(Array(this.pickUpDaysInAdvance).keys()).map(
-        index => {
-          const date = midNight(index);
-          return { index, date };
-        }
-      );
+      return Array.from(Array(this.pickUpDaysInAdvance).keys()).map(index => {
+        const date = midNight(index);
+        return { index, date };
+      });
     }
   },
   methods: {
@@ -62,5 +70,5 @@ export default {
         : this.shopInfo.pickUpDaysInAdvance;
     }
   }
-}
+};
 </script>

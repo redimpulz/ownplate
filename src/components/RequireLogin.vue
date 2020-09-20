@@ -1,11 +1,13 @@
 <template>
   <section class="section">
-    <div class="notFoundPageText">{{$t('errorPage.requireLogin.message1')}}</div>
+    <div class="notFoundPageText">
+      {{ $t("errorPage.requireLogin.message1") }}
+    </div>
     <div>
       <b-modal :active.sync="loginVisible" :width="640">
         <div class="card">
           <div class="card-content">
-            <phone-login v-on:dismissed="handleDismissed" />
+            <phone-login @dismissed="handleDismissed" />
           </div>
         </div>
       </b-modal>

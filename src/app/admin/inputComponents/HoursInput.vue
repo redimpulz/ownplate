@@ -3,24 +3,38 @@
     <div class="cols" style="align-items: center;">
       <div>
         <b-field :type="type">
-          <b-select v-model="value.start" :disabled="disabled" @input="updateValue">
+          <b-select
+            v-model="value.start"
+            :disabled="disabled"
+            @input="updateValue"
+          >
             <option
               v-for="(timeItem, index) of timeList"
               :key="timeItem"
               :value="index === 0 ? null : (index - 1) * 30"
-            >{{ timeItem }}</option>
+            >
+              {{ timeItem }}
+            </option>
           </b-select>
         </b-field>
       </div>
-      <div class="p-l-8 p-r-8">-</div>
+      <div class="p-l-8 p-r-8">
+        -
+      </div>
       <div>
         <b-field :type="type">
-          <b-select v-model="value.end" :disabled="disabled" @input="updateValue">
+          <b-select
+            v-model="value.end"
+            :disabled="disabled"
+            @input="updateValue"
+          >
             <option
               v-for="(timeItem, index) of timeList"
               :key="timeItem"
               :value="index === 0 ? null : (index - 1) * 30"
-            >{{ timeItem }}</option>
+            >
+              {{ timeItem }}
+            </option>
           </b-select>
         </b-field>
       </div>
@@ -44,11 +58,6 @@ export default {
       type: Object,
       required: true,
       default: () => ({})
-    }
-  },
-  methods: {
-    updateValue() {
-      this.$emit("input", this.value);
     }
   },
   data() {
@@ -106,6 +115,11 @@ export default {
         "12:00 AM"
       ]
     };
+  },
+  methods: {
+    updateValue() {
+      this.$emit("input", this.value);
+    }
   }
 };
 </script>

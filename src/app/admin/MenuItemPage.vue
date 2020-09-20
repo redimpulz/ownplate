@@ -18,7 +18,7 @@
               <div class="level-left flex-1"></div>
               <!-- Notification Settings -->
               <div class="level-right">
-                <notification-index :shopInfo="restaurantInfo" />
+                <notification-index :shop-info="restaurantInfo" />
               </div>
             </div>
 
@@ -43,20 +43,22 @@
               >
                 <span class="c-onprimary p-l-24 p-r-24">
                   {{
-                  $t(
-                  submitting
-                  ? "editCommon.saving"
-                  : menuInfo.publicFlag
-                  ? "editCommon.save"
-                  : "editCommon.saveDraft"
-                  )
+                    $t(
+                      submitting
+                        ? "editCommon.saving"
+                        : menuInfo.publicFlag
+                        ? "editCommon.save"
+                        : "editCommon.saveDraft"
+                    )
                   }}
                 </span>
               </b-button>
             </div>
 
             <!-- Public Checkbox -->
-            <div class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 r-8">
+            <div
+              class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 r-8"
+            >
               <b-checkbox
                 v-model="menuInfo.publicFlag"
                 :disabled="hasError"
@@ -67,19 +69,22 @@
 
               <!-- Messages -->
               <div>
+                <div v-if="hasError" class="t-subtitle2 c-status-red">
+                  {{ $t("editRestaurant.draftWarning") }}
+                </div>
                 <div
-                  v-if="hasError"
-                  class="t-subtitle2 c-status-red"
-                >{{ $t("editRestaurant.draftWarning") }}</div>
-                <div
-                  class="t-subtitle2 c-status-red"
                   v-if="!menuInfo.publicFlag && !hasError"
-                >{{ $t("editMenu.saveAsDraft") }}</div>
+                  class="t-subtitle2 c-status-red"
+                >
+                  {{ $t("editMenu.saveAsDraft") }}
+                </div>
               </div>
             </div>
 
             <!-- Required Note -->
-            <div class="t-subtitle2 c-status-red m-t-24">* {{ $t("editMenu.required") }}</div>
+            <div class="t-subtitle2 c-status-red m-t-24">
+              * {{ $t("editMenu.required") }}
+            </div>
           </div>
         </div>
         <!-- Right Gap -->
@@ -105,7 +110,10 @@
                   errors['itemName'].length > 0 ? 'is-danger' : 'is-success'
                 "
               >
-                <b-input v-model="menuInfo.itemName" :placeholder="$t('editMenu.enterItemName')"></b-input>
+                <b-input
+                  v-model="menuInfo.itemName"
+                  :placeholder="$t('editMenu.enterItemName')"
+                ></b-input>
               </b-field>
             </div>
 
@@ -132,9 +140,7 @@
                   ></b-input>
                   <div>
                     <span class="button is-static">
-                      {{
-                      $t("currency." + this.currencyKey)
-                      }}
+                      {{ $t("currency." + this.currencyKey) }}
                     </span>
                   </div>
                 </b-field>
@@ -148,12 +154,18 @@
                 <span class="c-status-red">*</span>
               </div>
               <div>
-                <b-field :type="errors['tax'].length > 0 ? 'is-danger' : 'is-success'">
+                <b-field
+                  :type="errors['tax'].length > 0 ? 'is-danger' : 'is-success'"
+                >
                   <b-select v-model="menuInfo.tax" placeholder="select">
-                    <option v-for="taxItem in taxRates" :value="taxItem" :key="taxItem">
+                    <option
+                      v-for="taxItem in taxRates"
+                      :key="taxItem"
+                      :value="taxItem"
+                    >
                       {{
-                      restaurantInfo &&
-                      (restaurantInfo[taxItem + "Tax"] || 0) + "%"
+                        restaurantInfo &&
+                          (restaurantInfo[taxItem + "Tax"] || 0) + "%"
                       }}
                       - {{ $t("editMenu." + taxRateKeys[taxItem]) }}
                     </option>
@@ -164,9 +176,11 @@
 
             <!-- Price Example -->
             <div v-if="requireTaxPriceDisplay" class="m-t-16">
-              <span class="t-subtitle2">{{ $t("editMenu.displayPrice") }}:</span>
+              <span class="t-subtitle2">
+                {{ $t("editMenu.displayPrice") }}:
+              </span>
               <span>
-                <Price :shopInfo="restaurantInfo" :menu="menuInfo" />
+                <Price :shop-info="restaurantInfo" :menu="menuInfo" />
               </span>
             </div>
 
@@ -179,10 +193,12 @@
               <div>
                 <b-checkbox
                   v-for="allergen in allergens"
-                  v-model="menuInfo.allergens[allergen]"
                   :key="allergen"
+                  v-model="menuInfo.allergens[allergen]"
                   class="m-b-8"
-                >{{ $t(`allergens.${allergen}`) }}</b-checkbox>
+                >
+                  {{ $t(`allergens.${allergen}`) }}
+                </b-checkbox>
               </div>
             </div>
 
@@ -216,14 +232,18 @@
           <div class="m-l-24 m-r-24">
             <!-- Item Photo -->
             <div class="m-t-16">
-              <div class="t-subtitle2 c-text-black-medium p-b-8">{{ $t("editMenu.itemPhoto") }}</div>
+              <div class="t-subtitle2 c-text-black-medium p-b-8">
+                {{ $t("editMenu.itemPhoto") }}
+              </div>
               <div class="cols">
                 <!-- Current Photo -->
                 <div v-if="itemPhoto" class="p-r-16">
                   <div>
                     <img class="w-128 h-128 r-4 cover" :src="itemPhoto" />
                   </div>
-                  <div class="align-center t-caption">{{ $t("editCommon.current") }}</div>
+                  <div class="align-center t-caption">
+                    {{ $t("editCommon.current") }}
+                  </div>
                 </div>
 
                 <!-- New Photo -->
@@ -244,14 +264,16 @@
                     :show-remove-button="true"
                     @file-choose="handleMenuImage"
                   ></croppa>
-                  <div class="align-center t-caption w-128">{{ $t("editCommon.new") }}</div>
+                  <div class="align-center t-caption w-128">
+                    {{ $t("editCommon.new") }}
+                  </div>
                 </div>
               </div>
 
               <!-- Description -->
-              <div
-                class="t-body2 c-text-black-medium p-l-8 p-r-8 m-t-8"
-              >{{ $t("editCommon.clickAndUploadDetail") }}</div>
+              <div class="t-body2 c-text-black-medium p-l-8 p-r-8 m-t-8">
+                {{ $t("editCommon.clickAndUploadDetail") }}
+              </div>
             </div>
 
             <!-- Item Options -->
@@ -261,10 +283,14 @@
                 <span class="c-status-red"></span>
               </div>
               <div>
-                <div class="t-body2 c-text-black-medium p-b-8">{{ $t("editMenu.itemOptionsNote") }}</div>
+                <div class="t-body2 c-text-black-medium p-b-8">
+                  {{ $t("editMenu.itemOptionsNote") }}
+                </div>
                 <!-- Option Details -->
                 <div>
-                  <template v-for="(option, key) in menuInfo.itemOptionCheckbox">
+                  <template
+                    v-for="(option, key) in menuInfo.itemOptionCheckbox"
+                  >
                     <div :key="key" class="cols m-b-8">
                       <b-input
                         v-model="menuInfo.itemOptionCheckbox[key]"
@@ -275,19 +301,22 @@
                         class="b-reset op-button-pill h-36 bg-status-red-bg m-l-8"
                         @click="deleteOption(key)"
                       >
-                        <i class="material-icons c-status-red s-18 p-l-8 p-r-8">delete</i>
+                        <i class="material-icons c-status-red s-18 p-l-8 p-r-8">
+                          delete
+                        </i>
                       </b-button>
                     </div>
                   </template>
                 </div>
                 <!-- Add Option -->
                 <div>
-                  <b-button class="b-reset op-button-pill h-36 bg-form" @click="addOption">
+                  <b-button
+                    class="b-reset op-button-pill h-36 bg-form"
+                    @click="addOption"
+                  >
                     <i class="material-icons c-primary m-l-8">add</i>
                     <span class="c-primary t-button">
-                      {{
-                      $t("editMenu.itemAddOption")
-                      }}
+                      {{ $t("editMenu.itemAddOption") }}
                     </span>
                   </b-button>
                 </div>
@@ -296,13 +325,20 @@
 
             <!-- Category 1 -->
             <div class="m-t-16">
-              <div class="t-subtitle2 c-text-black-medium p-b-8">{{ $t("editMenu.category1") }}</div>
-              <b-select v-if="categories1.length > 0" v-model="menuInfo.category1">
+              <div class="t-subtitle2 c-text-black-medium p-b-8">
+                {{ $t("editMenu.category1") }}
+              </div>
+              <b-select
+                v-if="categories1.length > 0"
+                v-model="menuInfo.category1"
+              >
                 <option
                   v-for="category in categories1"
                   :key="category"
                   :value="category"
-                >{{ category }}</option>
+                >
+                  {{ category }}
+                </option>
               </b-select>
               <div class="m-t-8">
                 <b-button
@@ -310,22 +346,27 @@
                   @click="editCategory('category1')"
                 >
                   <span class="c-primary t-button">
-                    {{
-                    $t("editMenu.editCategory1")
-                    }}
+                    {{ $t("editMenu.editCategory1") }}
                   </span>
                 </b-button>
               </div>
             </div>
             <!-- Category 2 -->
             <div class="m-t-16">
-              <div class="t-subtitle2 c-text-black-medium p-b-8">{{ $t("editMenu.category2") }}</div>
-              <b-select v-if="categories2.length > 0" v-model="menuInfo.category2">
+              <div class="t-subtitle2 c-text-black-medium p-b-8">
+                {{ $t("editMenu.category2") }}
+              </div>
+              <b-select
+                v-if="categories2.length > 0"
+                v-model="menuInfo.category2"
+              >
                 <option
                   v-for="category in categories2"
                   :key="category"
                   :value="category"
-                >{{ category }}</option>
+                >
+                  {{ category }}
+                </option>
               </b-select>
               <div class="m-t-8">
                 <b-button
@@ -333,9 +374,7 @@
                   @click="editCategory('category2')"
                 >
                   <span class="c-primary t-button">
-                    {{
-                    $t("editMenu.editCategory2")
-                    }}
+                    {{ $t("editMenu.editCategory2") }}
                   </span>
                 </b-button>
               </div>
@@ -355,7 +394,9 @@
         <div class="column">
           <div class="m-l-24 m-r-24 m-t-24">
             <!-- Public Checkbox -->
-            <div class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 r-8">
+            <div
+              class="m-t-24 align-center bg-form p-l-16 p-r-16 p-t-16 p-b-16 r-8"
+            >
               <b-checkbox
                 v-model="menuInfo.publicFlag"
                 :disabled="hasError"
@@ -366,14 +407,15 @@
 
               <!-- Messages -->
               <div>
+                <div v-if="hasError" class="t-subtitle2 c-status-red">
+                  {{ $t("editRestaurant.draftWarning") }}
+                </div>
                 <div
-                  v-if="hasError"
-                  class="t-subtitle2 c-status-red"
-                >{{ $t("editRestaurant.draftWarning") }}</div>
-                <div
-                  class="t-subtitle2 c-status-red"
                   v-if="!menuInfo.publicFlag && !hasError"
-                >{{ $t("editMenu.saveAsDraft") }}</div>
+                  class="t-subtitle2 c-status-red"
+                >
+                  {{ $t("editMenu.saveAsDraft") }}
+                </div>
               </div>
             </div>
 
@@ -398,13 +440,13 @@
               >
                 <span class="c-onprimary p-l-24 p-r-24">
                   {{
-                  $t(
-                  submitting
-                  ? "editCommon.saving"
-                  : menuInfo.publicFlag
-                  ? "editCommon.save"
-                  : "editCommon.saveDraft"
-                  )
+                    $t(
+                      submitting
+                        ? "editCommon.saving"
+                        : menuInfo.publicFlag
+                        ? "editCommon.save"
+                        : "editCommon.saveDraft"
+                    )
                   }}
                 </span>
               </b-button>
@@ -416,8 +458,8 @@
       </div>
       <edit-category
         v-if="categoryKey"
-        :categoryKey="categoryKey"
-        :restaurantInfo="restaurantInfo"
+        :category-key="categoryKey"
+        :restaurant-info="restaurantInfo"
         @dismissed="handleDismissed"
         @updated="handleCategoryUpdated"
       />
@@ -477,45 +519,6 @@ export default {
       categoryKey: null
     };
   },
-  async created() {
-    this.taxRateKeys = this.regionalSetting["taxRateKeys"];
-    this.requireTaxPriceDisplay = this.regionalSetting.requireTaxPriceDisplay;
-    this.currencyKey = this.regionalSetting["CurrencyKey"];
-
-    this.checkAdminPermission();
-
-    const restaurantRef = db.doc(`restaurants/${this.restaurantId()}`);
-    const resRestInfo = await restaurantRef.get();
-    if (!resRestInfo.exists) {
-      this.notFound = true;
-      console.log("no restaurant");
-      return;
-    }
-    this.restaurantInfo = resRestInfo.data();
-    if (!this.restaurantInfo.category1) {
-      this.restaurantInfo.category1 = [];
-    }
-    if (!this.restaurantInfo.category2) {
-      this.restaurantInfo.category2 = [];
-    }
-
-    if (this.restaurantInfo.uid !== this.uid) {
-      this.notFound = true;
-      console.log("no owner");
-      return;
-    }
-    const menuRes = db.doc(
-      `restaurants/${this.restaurantId()}/menus/${this.menuId}`
-    );
-    const resMenuInfo = await menuRes.get();
-    if (!resMenuInfo.exists) {
-      this.notFound = true;
-      console.log("no menu");
-      return;
-    }
-    this.menuInfo = Object.assign({}, this.menuInfo, resMenuInfo.data());
-    this.notFound = false;
-  },
   computed: {
     categories1() {
       return this.restaurantInfo.category1;
@@ -558,6 +561,45 @@ export default {
     hasError: function() {
       this.menuInfo.publicFlag = !this.hasError;
     }
+  },
+  async created() {
+    this.taxRateKeys = this.regionalSetting["taxRateKeys"];
+    this.requireTaxPriceDisplay = this.regionalSetting.requireTaxPriceDisplay;
+    this.currencyKey = this.regionalSetting["CurrencyKey"];
+
+    this.checkAdminPermission();
+
+    const restaurantRef = db.doc(`restaurants/${this.restaurantId()}`);
+    const resRestInfo = await restaurantRef.get();
+    if (!resRestInfo.exists) {
+      this.notFound = true;
+      console.log("no restaurant");
+      return;
+    }
+    this.restaurantInfo = resRestInfo.data();
+    if (!this.restaurantInfo.category1) {
+      this.restaurantInfo.category1 = [];
+    }
+    if (!this.restaurantInfo.category2) {
+      this.restaurantInfo.category2 = [];
+    }
+
+    if (this.restaurantInfo.uid !== this.uid) {
+      this.notFound = true;
+      console.log("no owner");
+      return;
+    }
+    const menuRes = db.doc(
+      `restaurants/${this.restaurantId()}/menus/${this.menuId}`
+    );
+    const resMenuInfo = await menuRes.get();
+    if (!resMenuInfo.exists) {
+      this.notFound = true;
+      console.log("no menu");
+      return;
+    }
+    this.menuInfo = Object.assign({}, this.menuInfo, resMenuInfo.data());
+    this.notFound = false;
   },
   methods: {
     async handleCategoryUpdated(categories) {

@@ -5,10 +5,12 @@
       class="bg-form r-8 p-l-16 p-r-16 p-t-16 p-b-16 m-t-24"
       @click="toEdit()"
     >
-      <div class="t-h6 c-text-black-disabled" if v-if="title.name == ''">
+      <div v-if="title.name == ''" class="t-h6 c-text-black-disabled" if>
         {{ $t("editTitle.empty") }}
       </div>
-      <div class="t-h6 c-text-black-disabled" if v-else>{{ title.name }}</div>
+      <div v-else class="t-h6 c-text-black-disabled" if>
+        {{ title.name }}
+      </div>
     </div>
 
     <!-- Card Actions -->
@@ -17,44 +19,44 @@
         <div class="flex-1">
           <!-- Position Up -->
           <b-button
-            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             v-if="position !== 'first'"
+            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             @click="positionUp"
           >
-            <i class="material-icons c-primary s-18 p-l-8 p-r-8"
-              >arrow_upward</i
-            >
+            <i class="material-icons c-primary s-18 p-l-8 p-r-8">
+              >arrow_upward
+            </i>
           </b-button>
           <!-- Disable if First -->
           <b-button
+            v-else
             class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             disabled
-            v-else
           >
-            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8"
-              >arrow_upward</i
-            >
+            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8">
+              >arrow_upward
+            </i>
           </b-button>
 
           <!-- Position Down -->
           <b-button
-            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             v-if="position !== 'last'"
+            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             @click="positionDown"
           >
-            <i class="material-icons c-primary s-18 p-l-8 p-r-8"
-              >arrow_downward</i
-            >
+            <i class="material-icons c-primary s-18 p-l-8 p-r-8">
+              >arrow_downward
+            </i>
           </b-button>
           <!-- Disable if Last -->
           <b-button
+            v-else
             class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             disabled
-            v-else
           >
-            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8"
-              >arrow_downward</i
-            >
+            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8">
+              >arrow_downward
+            </i>
           </b-button>
 
           <!-- Duplicate -->

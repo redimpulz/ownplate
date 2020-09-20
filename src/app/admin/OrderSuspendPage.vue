@@ -20,9 +20,14 @@
               <!-- Restaurant Profile -->
               <div class="is-inline-flex flex-center m-t-24">
                 <div>
-                  <img :src="resizedProfileImage(shopInfo, '600')" class="w-36 h-36 r-36 cover" />
+                  <img
+                    :src="resizedProfileImage(shopInfo, '600')"
+                    class="w-36 h-36 r-36 cover"
+                  />
                 </div>
-                <div class="t-h6 c-text-black-high m-l-8 flex-1">{{ shopInfo.restaurantName }}</div>
+                <div class="t-h6 c-text-black-high m-l-8 flex-1">
+                  {{ shopInfo.restaurantName }}
+                </div>
               </div>
             </div>
           </div>
@@ -40,15 +45,15 @@
       <!-- Left Column -->
       <div class="column">
         <div class="m-l-24 m-r-24">
-          <div class="t-h6 c-text-black-disabled m-t-24">{{ $t("admin.order.suspendSettings") }}</div>
+          <div class="t-h6 c-text-black-disabled m-t-24">
+            {{ $t("admin.order.suspendSettings") }}
+          </div>
 
           <!-- Suspend New Orders -->
           <div>
             <div class="t-subtitle2 c-text-black-medium m-t-16">
               {{ $t("admin.order.suspendNewOrders") }}
-              <span
-                v-if="date"
-              >: {{ $d(date.date, "short" )}}</span>
+              <span v-if="date">: {{ $d(date.date, "short") }}</span>
             </div>
             <!-- # ToDo: Switch Suspend/Unsuspend buttons based on the status. -->
             <!-- Suspend Buttons -->
@@ -56,101 +61,123 @@
               <b-button
                 v-for="time in availableTimes"
                 :key="time.time"
-                @click="handleSuspend(time.time)"
                 class="b-reset op-button-pill bg-form m-t-16 m-r-16"
+                @click="handleSuspend(time.time)"
               >
                 <i class="material-icons p-l-8 c-primary">alarm_off</i>
-                <span
-                  class="t-button p-r-8 c-primary"
-                >{{$t("admin.order.suspendUntil", {display:time.display})}}</span>
+                <span class="t-button p-r-8 c-primary">
+                  {{
+                    $t("admin.order.suspendUntil", { display: time.display })
+                  }}
+                </span>
               </b-button>
               <b-button
                 v-if="availableTimes.length > 0"
                 class="b-reset op-button-pill bg-form m-t-16 m-r-16"
-                @click="handleSuspend(24*60)"
+                @click="handleSuspend(24 * 60)"
               >
                 <i class="material-icons p-l-8 c-primary">alarm_off</i>
-                <span class="t-button p-r-8 c-primary">{{ $t("admin.order.suspendForAllDay") }}</span>
+                <span class="t-button p-r-8 c-primary">
+                  {{ $t("admin.order.suspendForAllDay") }}
+                </span>
               </b-button>
             </div>
 
             <!-- Unsuspend Button -->
             <div v-else>
-              <div class="bg-status-red-bg r-8 p-l-16 p-r-16 p-t-16 p-b-16 m-t-16 align-center">
-                <div class="t-subtitle1 c-status-red">{{ $t("admin.order.suspending") }}</div>
-                <div
-                  class="t-subtitle2 c-status-red"
-                >{{ $t("admin.order.unsuspendAt") }} {{ suspendUntil }}</div>
+              <div
+                class="bg-status-red-bg r-8 p-l-16 p-r-16 p-t-16 p-b-16 m-t-16 align-center"
+              >
+                <div class="t-subtitle1 c-status-red">
+                  {{ $t("admin.order.suspending") }}
+                </div>
               </div>
-              <b-button class="b-reset op-button-pill bg-form m-t-16 m-r-16" @click="handleRemove">
-                <i class="material-icons p-l-8 c-primary">alarm_on</i>
-                <span class="t-button p-r-8 c-primary">{{ $t("admin.order.unsuspend") }}</span>
-              </b-button>
+              <div class="t-subtitle2 c-status-red">
+                {{ $t("admin.order.unsuspendAt") }} {{ suspendUntil }}
+              </div>
             </div>
-          </div>
-
-          <!-- Suspend Individual Item -->
-          <!-- # ToDo: Implement select/deselect all check boxes. -->
-          <div v-if="false">
-            <div
-              class="t-subtitle2 c-text-black-medium m-t-24"
-            >{{ $t("admin.order.suspendIndividualItem") }}</div>
-
-            <!-- Suspend All Items -->
-            <b-button class="b-reset op-button-pill bg-form m-t-16 m-r-16">
-              <i class="material-icons p-l-8 c-primary">check_box</i>
-              <span class="t-button p-r-8 c-primary">{{ $t("admin.order.suspendAllItems") }}</span>
-            </b-button>
-
-            <!-- Unsuspend All Items -->
-            <b-button class="b-reset op-button-pill bg-form m-t-16 m-r-16">
-              <i class="material-icons p-l-8 c-primary">check_box_outline_blank</i>
-              <span class="t-button p-r-8 c-primary">{{ $t("admin.order.unsuspendAllItems") }}</span>
+            <b-button
+              class="b-reset op-button-pill bg-form m-t-16 m-r-16"
+              @click="handleRemove"
+            >
+              <i class="material-icons p-l-8 c-primary">alarm_on</i>
+              <span class="t-button p-r-8 c-primary">
+                {{ $t("admin.order.unsuspend") }}
+              </span>
             </b-button>
           </div>
         </div>
-      </div>
 
-      <!-- Right Column -->
-      <div class="column" v-if="false">
-        <div class="m-l-24 m-r-24">
-          <div class="m-t-24">
-            <!-- Menu Items -->
-            <template v-for="itemId in menuLists">
-              <div v-if="itemsObj[itemId]" :key="itemId">
-                <div
-                  class="t-h6 c-text-black-disabled m-t-24"
-                  v-if="itemsObj[itemId]._dataType === 'title'"
-                >{{ itemsObj[itemId].name }}</div>
-                <order-suspend-item
-                  v-if="itemsObj[itemId]._dataType === 'menu'"
-                  :item="itemsObj[itemId]"
-                  :shopInfo="shopInfo"
-                ></order-suspend-item>
-              </div>
-            </template>
+        <!-- Suspend Individual Item -->
+        <!-- # ToDo: Implement select/deselect all check boxes. -->
+        <div v-if="false">
+          <div class="t-subtitle2 c-text-black-medium m-t-24">
+            {{ $t("admin.order.suspendIndividualItem") }}
           </div>
+
+          <!-- Suspend All Items -->
+          <b-button class="b-reset op-button-pill bg-form m-t-16 m-r-16">
+            <i class="material-icons p-l-8 c-primary">check_box</i>
+            <span class="t-button p-r-8 c-primary">
+              {{ $t("admin.order.suspendAllItems") }}
+            </span>
+          </b-button>
+
+          <!-- Unsuspend All Items -->
+          <b-button class="b-reset op-button-pill bg-form m-t-16 m-r-16">
+            <i class="material-icons p-l-8 c-primary">
+              check_box_outline_blank
+            </i>
+            <span class="t-button p-r-8 c-primary">
+              {{ $t("admin.order.unsuspendAllItems") }}
+            </span>
+          </b-button>
         </div>
       </div>
-      <!-- Right Gap -->
-      <div class="column is-narrow w-24"></div>
     </div>
+
+    <!-- Right Column -->
+    <div v-if="false" class="column">
+      <div class="m-l-24 m-r-24">
+        <div class="m-t-24">
+          <!-- Menu Items -->
+          <template v-for="itemId in menuLists">
+            <div v-if="itemsObj[itemId]" :key="itemId">
+              <div
+                v-if="itemsObj[itemId]._dataType === 'title'"
+                class="t-h6 c-text-black-disabled m-t-24"
+              >
+                {{ itemsObj[itemId].name }}
+              </div>
+              <order-suspend-item
+                v-if="itemsObj[itemId]._dataType === 'menu'"
+                :item="itemsObj[itemId]"
+                :shop-info="shopInfo"
+              ></order-suspend-item>
+            </div>
+          </template>
+        </div>
+      </div>
+    </div>
+    <!-- Right Gap -->
+    <div class="column is-narrow w-24"></div>
+  </div>
   </div>
 </template>
 
 <script>
-import { db, firestore, functions } from "~/plugins/firebase.js";
-import BackButton from "~/components/BackButton";
-import OrderSuspendItem from "~/app/admin/Order/OrderSuspendItem";
-import PickupMixin from "~/app/user/Order/pickupMixin";
-import * as firebase from "firebase/app";
+import { db, firestore, functions } from '~/plugins/firebase.js';
+import BackButton from '~/components/BackButton';
+import OrderSuspendItem from '~/app/admin/Order/OrderSuspendItem';
+import PickupMixin from '~/app/user/Order/pickupMixin';
+import * as firebase from 'firebase/app';
 
 export default {
-  mixins: [PickupMixin],
   components: {
     OrderSuspendItem,
     BackButton
   },
+  mixins: [PickupMixin],
   data() {
     return {
       shopInfo: {},
@@ -160,52 +187,6 @@ export default {
       detacher: [],
       notFound: null
     };
-  },
-  created() {
-    const restaurant_detacher = db
-      .doc(`restaurants/${this.restaurantId()}`)
-      .onSnapshot(restaurant => {
-        const restaurant_data = restaurant.data();
-        this.shopInfo = restaurant_data;
-        if (
-          restaurant.exists &&
-          !restaurant.data().deletedFlag &&
-          restaurant.data().publicFlag
-        ) {
-          this.notFound = false;
-        } else {
-          this.notFound = true;
-        }
-      });
-    const menu_detacher = db
-      .collection(`restaurants/${this.restaurantId()}/menus`)
-      .where("deletedFlag", "==", false)
-      .where("publicFlag", "==", true)
-      .onSnapshot(menu => {
-        if (!menu.empty) {
-          this.menus = menu.docs
-            .filter(a => {
-              const data = a.data();
-              return data.validatedFlag === undefined || data.validatedFlag;
-            })
-            .map(this.doc2data("menu"));
-        }
-      });
-    const title_detacher = db
-      .collection(`restaurants/${this.restaurantId()}/titles`)
-      .onSnapshot(title => {
-        if (!title.empty) {
-          this.titles = title.docs.map(this.doc2data("title"));
-        }
-      });
-    this.detacher = [restaurant_detacher, menu_detacher, title_detacher];
-  },
-  destroyed() {
-    if (this.detacher) {
-      this.detacher.map(detacher => {
-        detacher();
-      });
-    }
   },
   computed: {
     availableTimes() {
@@ -234,9 +215,55 @@ export default {
         if (time < new Date()) {
           return false;
         }
-        return this.$d(time, "time");
+        return this.$d(time, 'time');
       }
       return false;
+    }
+  },
+  created() {
+    const restaurant_detacher = db
+      .doc(`restaurants/${this.restaurantId()}`)
+      .onSnapshot(restaurant => {
+        const restaurant_data = restaurant.data();
+        this.shopInfo = restaurant_data;
+        if (
+          restaurant.exists &&
+          !restaurant.data().deletedFlag &&
+          restaurant.data().publicFlag
+        ) {
+          this.notFound = false;
+        } else {
+          this.notFound = true;
+        }
+      });
+    const menu_detacher = db
+      .collection(`restaurants/${this.restaurantId()}/menus`)
+      .where('deletedFlag', '==', false)
+      .where('publicFlag', '==', true)
+      .onSnapshot(menu => {
+        if (!menu.empty) {
+          this.menus = menu.docs
+            .filter(a => {
+              const data = a.data();
+              return data.validatedFlag === undefined || data.validatedFlag;
+            })
+            .map(this.doc2data('menu'));
+        }
+      });
+    const title_detacher = db
+      .collection(`restaurants/${this.restaurantId()}/titles`)
+      .onSnapshot(title => {
+        if (!title.empty) {
+          this.titles = title.docs.map(this.doc2data('title'));
+        }
+      });
+    this.detacher = [restaurant_detacher, menu_detacher, title_detacher];
+  },
+  destroyed() {
+    if (this.detacher) {
+      this.detacher.map(detacher => {
+        detacher();
+      });
     }
   },
   methods: {
@@ -246,18 +273,18 @@ export default {
       date.setMinutes(time % 60);
       const ts = firebase.firestore.Timestamp.fromDate(date);
       console.log(ts);
-      this.$store.commit("setLoading", true);
+      this.$store.commit('setLoading', true);
       await db.doc(`restaurants/${this.restaurantId()}`).update({
         suspendUntil: ts
       });
-      this.$store.commit("setLoading", false);
+      this.$store.commit('setLoading', false);
     },
     async handleRemove() {
-      this.$store.commit("setLoading", true);
+      this.$store.commit('setLoading', true);
       await db.doc(`restaurants/${this.restaurantId()}`).update({
         suspendUntil: null
       });
-      this.$store.commit("setLoading", false);
+      this.$store.commit('setLoading', false);
     }
   }
 };

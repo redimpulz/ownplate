@@ -69,8 +69,11 @@
             </div>
 
             <!-- Go to Owner Manual -->
-            <div class="align-center m-t-16" v-if="isJapan">
-              <a href="https://gluepass.jp/g/ownplatejp/pg/Zy8VserQdTxFVKLaFcOK" target="_blank">
+            <div v-if="isJapan" class="align-center m-t-16">
+              <a
+                href="https://gluepass.jp/g/ownplatejp/pg/Zy8VserQdTxFVKLaFcOK"
+                target="_blank"
+              >
                 <div class="op-button-text">
                   <i class="material-icons">help_outline</i>
                   <span>{{ $t("menu.adminManual") }}</span>
@@ -79,7 +82,7 @@
             </div>
 
             <!-- Go to Owner Support -->
-            <div class="align-center" v-if="isJapan">
+            <div v-if="isJapan" class="align-center">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfGR4kk65ynfkCRGJsvJz01HZf7AU1nGLL9Rn9i4G9-qiW6MQ/viewform"
                 target="_blank"
@@ -92,10 +95,16 @@
             </div>
 
             <!-- Go to Facebook User Group -->
-            <div class="align-center" v-if="isJapan">
-              <a href="https://www.facebook.com/groups/278028420106364/" target="_blank">
+            <div v-if="isJapan" class="align-center">
+              <a
+                href="https://www.facebook.com/groups/278028420106364/"
+                target="_blank"
+              >
                 <div class="op-button-text">
-                  <i class="fab fa-facebook c-primary m-r-8" style="font-size:18px" />
+                  <i
+                    class="fab fa-facebook c-primary m-r-8"
+                    style="font-size:18px"
+                  />
                   <span>{{ $t("menu.adminUserGroup") }}</span>
                 </div>
               </a>
@@ -114,7 +123,7 @@
             </div>
 
             <!-- Go to User Page -->
-            <div class="align-center" v-if="!hideUsersLink">
+            <div v-if="!hideUsersLink" class="align-center">
               <router-link to="/r">
                 <div class="op-button-medium primary" style="min-width: 256px;">
                   <span class="c-onprimary">{{ $t("menu.users") }}</span>
@@ -124,7 +133,10 @@
 
             <!-- Go to User Manual -->
             <div class="align-center m-t-16">
-              <a href="https://gluepass.jp/g/ownplatejp/pg/zzDScN7kc1WgNQaA9J7v" target="_blank">
+              <a
+                href="https://gluepass.jp/g/ownplatejp/pg/zzDScN7kc1WgNQaA9J7v"
+                target="_blank"
+              >
                 <div class="op-button-text">
                   <i class="material-icons">help_outline</i>
                   <span>{{ $t("menu.userManual") }}</span>
@@ -133,7 +145,7 @@
             </div>
 
             <!-- Go to User Support -->
-            <div class="align-center" v-if="isJapan">
+            <div v-if="isJapan" class="align-center">
               <a
                 href="https://docs.google.com/forms/d/e/1FAIpQLSfGR4kk65ynfkCRGJsvJz01HZf7AU1nGLL9Rn9i4G9-qiW6MQ/viewform"
                 target="_blank"
@@ -196,7 +208,9 @@
             <div class="m-l-24 m-r-24">
               <!-- English -->
               <div v-if="!isLocaleJapan">
-                <div class="t-h6 c-text-black-disabled m-t-48">About</div>
+                <div class="t-h6 c-text-black-disabled m-t-48">
+                  About
+                </div>
                 <div class="t-body1 c-text-black-high m-t-24">
                   The COVID-19 has not only claimed the lives of many people,
                   but it has also caused significant damage to the economy. In
@@ -224,15 +238,19 @@
                   (Google) + Vue (open source), which allows us to develop this
                   service in a very short period of time.
                 </div>
-                <div class="t-body1 c-text-black-high m-t-24">Sincerely,</div>
-                <div
-                  class="t-body1 c-text-black-high m-t-24"
-                >Satoshi Nakajima, chairman of Singularity Society</div>
+                <div class="t-body1 c-text-black-high m-t-24">
+                  Sincerely,
+                </div>
+                <div class="t-body1 c-text-black-high m-t-24">
+                  Satoshi Nakajima, chairman of Singularity Society
+                </div>
               </div>
 
               <!-- Japanese -->
               <div v-else>
-                <div class="t-h6 c-text-black-disabled m-t-48">このサービスについて</div>
+                <div class="t-h6 c-text-black-disabled m-t-48">
+                  このサービスについて
+                </div>
                 <div class="t-body1 c-text-black-high m-t-24">
                   新型コロナウィルスは、多くの人の命を奪っただけではなく、経済にも大きなダメージを与えました。
                   特に、「人の集まる場所」を提供するレストランやバーは、都市封鎖や自宅待機により直接的な被害を被り、
@@ -240,9 +258,9 @@
                 </div>
                 <div class="t-body1 c-text-black-high m-t-24">
                   私たちは、そんなレストランやバーを支援するために、「{{
-                  $t("serviceName." + this.serviceKey)
+                    $t("serviceName." + this.serviceKey)
                   }}」を作りました。 「{{
-                  $t("serviceName." + this.serviceKey)
+                    $t("serviceName." + this.serviceKey)
                   }}」を使えば、レストランは、余計な手数料なしでテイクアウトサービスを始める事ができます。
                   レストランは、専用のページを作り、そこにメニューを登録します（ウェブ・コンサルタントを雇う必要はありません）。
                   顧客はそのページから注文し、支払いを済ませ、調理時間に合わせて店に取りに行くのです。
@@ -252,7 +270,9 @@
                   「おもちかえり.com」は、Firebase と Vue
                   という技術を使って作られています。
                 </div>
-                <div class="t-body1 c-text-black-high m-t-24">代表理事 中島聡</div>
+                <div class="t-body1 c-text-black-high m-t-24">
+                  代表理事 中島聡
+                </div>
               </div>
             </div>
           </div>

@@ -10,21 +10,28 @@
           <div class="column is-three-fifths is-offset-one-fifth">
             <div class="m-l-24 m-r-24">
               <!-- Profile Card -->
-              <div class="t-h6 c-text-black-disabled m-t-24 m-b-8">{{ $t("profile.title") }}</div>
+              <div class="t-h6 c-text-black-disabled m-t-24 m-b-8">
+                {{ $t("profile.title") }}
+              </div>
               <div class="bg-surface r-8 d-low p-l-24 p-r-24 p-t-24 p-b-24">
                 <!-- Login Status -->
                 <div class="align-center">
-                  <div
-                    class="t-subtitle2 c-text-black-disabled p-b-8"
-                  >{{ $t("profile.loginStatus") }}</div>
-                  <div class="t-subtitle1 c-text-black-high">{{ loginStatus }}</div>
+                  <div class="t-subtitle2 c-text-black-disabled p-b-8">
+                    {{ $t("profile.loginStatus") }}
+                  </div>
+                  <div class="t-subtitle1 c-text-black-high">
+                    {{ loginStatus }}
+                  </div>
                 </div>
 
                 <!-- Not Signed In -->
                 <div v-if="!user">
                   <!-- Sign In as a User -->
                   <div class="align-center m-t-24">
-                    <div class="op-button-medium secondary" @click.prevent="handleSignIn">
+                    <div
+                      class="op-button-medium secondary"
+                      @click.prevent="handleSignIn"
+                    >
                       <i class="material-icons m-r-8">tag_faces</i>
                       <span>{{ $t("profile.signIn") }}</span>
                     </div>
@@ -41,9 +48,13 @@
                   </div>
 
                   <!-- Phone Login-->
-                  <b-modal :active.sync="loginVisible" :width="488" scroll="keep">
+                  <b-modal
+                    :active.sync="loginVisible"
+                    :width="488"
+                    scroll="keep"
+                  >
                     <div class="op-dialog p-t-24 p-l-24 p-r-24 p-b-24">
-                      <phone-login v-on:dismissed="handleDismissed" />
+                      <phone-login @dismissed="handleDismissed" />
                     </div>
                   </b-modal>
                 </div>
@@ -57,17 +68,20 @@
                   <div v-if="user.phoneNumber">
                     <!-- Credit Card Info -->
                     <div class="align-center p-t-16">
-                      <div
-                        class="t-subtitle2 c-text-black-disabled p-b-8"
-                      >{{ $t("profile.stripeInfo") }}</div>
-                      <div class="t-subtitle1 c-text-black-high">{{ cardDescription }}</div>
+                      <div class="t-subtitle2 c-text-black-disabled p-b-8">
+                        {{ $t("profile.stripeInfo") }}
+                      </div>
+                      <div class="t-subtitle1 c-text-black-high">
+                        {{ cardDescription }}
+                      </div>
                       <div v-if="storedCard">
-                        <b-button class="b-reset op-button-text" @click="handleDeleteCard">
+                        <b-button
+                          class="b-reset op-button-text"
+                          @click="handleDeleteCard"
+                        >
                           <i class="material-icons c-status-red">delete</i>
                           <span class="c-status-red">
-                            {{
-                            $t("profile.deleteCard")
-                            }}
+                            {{ $t("profile.deleteCard") }}
                           </span>
                         </b-button>
                       </div>
@@ -77,24 +91,31 @@
                     <div class="bg-form r-8 p-l-16 p-r-16 p-t-24 p-b-24 m-t-24">
                       <!-- LINE Status -->
                       <div class="align-center">
-                        <div
-                          class="t-subtitle2 c-text-black-disabled p-b-8"
-                        >{{ $t("profile.lineConnection") }}</div>
-                        <div class="t-subtitle1 c-text-black-high">{{ lineConnection }}</div>
+                        <div class="t-subtitle2 c-text-black-disabled p-b-8">
+                          {{ $t("profile.lineConnection") }}
+                        </div>
+                        <div class="t-subtitle1 c-text-black-high">
+                          {{ lineConnection }}
+                        </div>
                       </div>
 
                       <!-- LINE Connected -->
                       <div v-if="isLineUser">
                         <!-- Friend Status -->
                         <div class="m-t-24 align-center">
-                          <div
-                            class="t-subtitle2 c-text-black-disabled p-b-8"
-                          >{{ $t("profile.lineFriend") }}</div>
-                          <div class="t-subtitle1 c-text-black-high">{{ lineFriend }}</div>
+                          <div class="t-subtitle2 c-text-black-disabled p-b-8">
+                            {{ $t("profile.lineFriend") }}
+                          </div>
+                          <div class="t-subtitle1 c-text-black-high">
+                            {{ lineFriend }}
+                          </div>
                         </div>
 
                         <!-- Not Friend -->
-                        <div v-if="isFriend === false" class="align-center m-t-16">
+                        <div
+                          v-if="isFriend === false"
+                          class="align-center m-t-16"
+                        >
                           <b-button
                             class="b-reset op-button-small"
                             style="background:#18b900"
@@ -105,7 +126,9 @@
                               class="fab fa-line c-text-white-full m-l-24 m-r-8"
                               style="font-size:24px"
                             />
-                            <span class="c-text-white-full m-r-24">{{ $t("profile.friendLink") }}</span>
+                            <span class="c-text-white-full m-r-24">
+                              {{ $t("profile.friendLink") }}
+                            </span>
                           </b-button>
                         </div>
                       </div>
@@ -122,7 +145,9 @@
                               class="fab fa-line c-text-white-full m-l-24 m-r-8"
                               style="font-size:24px"
                             />
-                            <span class="c-text-white-full m-r-24">{{ $t("line.notifyMe") }}</span>
+                            <span class="c-text-white-full m-r-24">
+                              {{ $t("line.notifyMe") }}
+                            </span>
                           </b-button>
                         </div>
                       </div>
@@ -134,7 +159,9 @@
                         <div
                           class="op-button-medium primary"
                           style="min-width: 256px;"
-                        >{{ $t("order.history") }}</div>
+                        >
+                          {{ $t("order.history") }}
+                        </div>
                       </router-link>
                     </div>
                   </div>
@@ -144,34 +171,48 @@
                     <div
                       class="op-button-small tertiary"
                       @click.prevent="handleSignOut"
-                    >{{ $t("menu.signOut") }}</div>
+                    >
+                      {{ $t("menu.signOut") }}
+                    </div>
                   </div>
 
                   <!-- Delete Account and Phone Login -->
                   <div v-if="user.phoneNumber">
                     <!-- Delete Account -->
                     <div class="m-t-16 align-center">
-                      <b-button class="b-reset op-button-text" @click="handleDeleteAccount">
+                      <b-button
+                        class="b-reset op-button-text"
+                        @click="handleDeleteAccount"
+                      >
                         <i class="material-icons c-status-red">delete</i>
                         <span class="c-status-red">
-                          {{
-                          $t("profile.deleteAccount")
-                          }}
+                          {{ $t("profile.deleteAccount") }}
                         </span>
                       </b-button>
                     </div>
 
                     <!-- Phone Login-->
-                    <b-modal :active.sync="reLoginVisible" :width="488" scroll="keep">
+                    <b-modal
+                      :active.sync="reLoginVisible"
+                      :width="488"
+                      scroll="keep"
+                    >
                       <div class="op-dialog p-t-24 p-l-24 p-r-24 p-b-24">
-                        <phone-login v-on:dismissed="continueDelete" :relogin="user.phoneNumber" />
+                        <phone-login
+                          :relogin="user.phoneNumber"
+                          @dismissed="continueDelete"
+                        />
                       </div>
                     </b-modal>
                   </div>
                 </div>
 
                 <!-- Loading -->
-                <b-loading :is-full-page="false" :active="isDeletingAccount" :can-cancel="true"></b-loading>
+                <b-loading
+                  :is-full-page="false"
+                  :active="isDeletingAccount"
+                  :can-cancel="true"
+                ></b-loading>
               </div>
             </div>
           </div>
@@ -203,36 +244,6 @@ export default {
       storedCard: null,
       detachStripe: null
     };
-  },
-  async created() {
-    if (this.isLineUser) {
-      this.checkFriend();
-    }
-    this.checkStripe();
-  },
-  destroyed() {
-    this.detachStripe && this.detachStripe();
-  },
-  watch: {
-    isWindowActive(newValue) {
-      if (newValue && this.isLineUser && !this.isFriend) {
-        this.isFriend = undefined;
-        this.checkFriend();
-      }
-    },
-    isLineUser(newValue) {
-      if (this.isFriend === undefined) {
-        this.checkFriend();
-      }
-    },
-    user(newValue) {
-      this.checkStripe();
-      if (newValue) {
-        // We need to unset this.loginVisible, because handleDismissed will not be called
-        // on successful login
-        this.loginVisible = false;
-      }
-    }
   },
   computed: {
     isWindowActive() {
@@ -284,6 +295,36 @@ export default {
       }
       return this.$t("profile.status.none");
     }
+  },
+  watch: {
+    isWindowActive(newValue) {
+      if (newValue && this.isLineUser && !this.isFriend) {
+        this.isFriend = undefined;
+        this.checkFriend();
+      }
+    },
+    isLineUser(newValue) {
+      if (this.isFriend === undefined) {
+        this.checkFriend();
+      }
+    },
+    user(newValue) {
+      this.checkStripe();
+      if (newValue) {
+        // We need to unset this.loginVisible, because handleDismissed will not be called
+        // on successful login
+        this.loginVisible = false;
+      }
+    }
+  },
+  async created() {
+    if (this.isLineUser) {
+      this.checkFriend();
+    }
+    this.checkStripe();
+  },
+  destroyed() {
+    this.detachStripe && this.detachStripe();
   },
   methods: {
     checkStripe() {

@@ -20,9 +20,14 @@
               <!-- Restaurant Profile -->
               <div class="is-inline-flex flex-center m-t-24">
                 <div>
-                  <img :src="resizedProfileImage(shopInfo, '600')" class="w-36 h-36 r-36 cover" />
+                  <img
+                    :src="resizedProfileImage(shopInfo, '600')"
+                    class="w-36 h-36 r-36 cover"
+                  />
                 </div>
-                <div class="t-h6 c-text-black-high m-l-8 flex-1">{{ shopInfo.restaurantName }}</div>
+                <div class="t-h6 c-text-black-high m-l-8 flex-1">
+                  {{ shopInfo.restaurantName }}
+                </div>
               </div>
             </div>
 
@@ -34,14 +39,18 @@
                 :to="`/admin/restaurants/${restaurantId()}/suspend`"
                 class="b-reset op-button-pill h-36 bg-form m-t-24 m-r-16"
               >
-                <i class="material-icons c-primary m-l-8">remove_shopping_cart</i>
-                <span class="c-primary t-button">{{ $t("admin.order.suspend") }}</span>
+                <i class="material-icons c-primary m-l-8">
+                  remove_shopping_cart
+                </i>
+                <span class="c-primary t-button">
+                  {{ $t("admin.order.suspend") }}
+                </span>
                 <!-- # ToDO: Show number of suspended items. -->
                 <span class="t-button c-status-red">0</span>
               </b-button>
 
               <!-- Notification Settings -->
-              <notification-index :shopInfo="shopInfo" />
+              <notification-index :shop-info="shopInfo" />
             </div>
           </div>
         </div>
@@ -62,22 +71,26 @@
             <ordered-info
               v-for="order in orders"
               :key="order.id"
-              @selected="orderSelected($event)"
               :order="order"
-              :isSuperView="true"
+              :is-super-view="true"
+              @selected="orderSelected($event)"
             />
           </div>
-          <div class="m-t-24" v-if="last !== undefined">
-            <b-button class="b-reset h-36 r-36 bg-form" :disabled="last === null" @click="next">
-              <span class="p-l-16 p-r-16">{{ $t('admin.order.more') }}</span>
+          <div v-if="last !== undefined" class="m-t-24">
+            <b-button
+              class="b-reset h-36 r-36 bg-form"
+              :disabled="last === null"
+              @click="next"
+            >
+              <span class="p-l-16 p-r-16">{{ $t("admin.order.more") }}</span>
             </b-button>
           </div>
           <download-orders :orders="orders" />
           <report-details
             :orders="orders"
-            :fileName="fileName"
-            :hideTable="true"
-            :withStatus="true"
+            :file-name="fileName"
+            :hide-table="true"
+            :with-status="true"
           />
         </div>
       </div>
@@ -114,6 +127,11 @@ export default {
       orders: []
     };
   },
+  computed: {
+    fileName() {
+      return this.$t("order.history");
+    }
+  },
   async created() {
     this.checkAdminPermission();
     const restaurantDoc = await db
@@ -125,11 +143,6 @@ export default {
     }
     this.shopInfo = restaurantDoc.data();
     this.next();
-  },
-  computed: {
-    fileName() {
-      return this.$t("order.history");
-    }
   },
   methods: {
     async next() {

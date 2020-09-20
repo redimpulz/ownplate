@@ -26,32 +26,32 @@ export const state = () => ({
 });
 
 export const getters = {
-  uid: (state) => {
+  uid: state => {
     return state.user && state.user.uid;
   },
-  uidAdmin: (state) => {
+  uidAdmin: state => {
     return state.user && state.user.email && state.user.uid;
   },
-  uidUser: (state) => {
+  uidUser: state => {
     return state.user && state.user.phoneNumber && state.user.uid;
   },
-  userWasInitialized: (state) => {
+  userWasInitialized: state => {
     // Check if state.user has been initialized (as the result of notication from Firebase)
     return state.user !== undefined;
   },
-  stripeRegion: (state) => {
+  stripeRegion: state => {
     return stripe_regions[state.server.region || "US"];
   },
-  isSuperAdmin: (state) => {
+  isSuperAdmin: state => {
     return state.claims?.admin;
   },
-  isNotSuperAdmin: (state) => {
+  isNotSuperAdmin: state => {
     return !state.claims?.admin;
   },
-  isOperator: (state) => {
+  isOperator: state => {
     return state.claims?.operator;
   },
-  isNotOperator: (state) => {
+  isNotOperator: state => {
     return !state.claims?.operator;
   }
 };
@@ -86,7 +86,7 @@ export const mutations = {
     state.claims = claims;
   },
   pingOrderEvent(state) {
-    state.orderEvent = (state.orderEvent) + 1;
+    state.orderEvent = state.orderEvent + 1;
   },
   setOrders(state, orders) {
     state.orderObj = orders.reduce((tmp, order) => {
@@ -124,5 +124,4 @@ export const mutations = {
   }
 };
 
-export const actions = {
-};
+export const actions = {};
