@@ -11,7 +11,9 @@
           <nuxt-link :to="'/admin/restaurants'">
             <div class="op-button-pill bg-form m-r-16">
               <i class="material-icons c-primary s-18">home</i>
-              <span class="c-primary t-button">{{$t("admin.news.adminTop")}}</span>
+              <span class="c-primary t-button">
+                {{ $t("admin.news.adminTop") }}
+              </span>
             </div>
           </nuxt-link>
 
@@ -19,7 +21,9 @@
           <nuxt-link :to="'/admin/news'">
             <div class="op-button-pill bg-form">
               <i class="material-icons c-primary s-18">list</i>
-              <span class="c-primary t-button">{{$t("admin.news.newsTop")}}</span>
+              <span class="c-primary t-button">
+                {{ $t("admin.news.newsTop") }}
+              </span>
             </div>
           </nuxt-link>
         </div>
@@ -39,11 +43,17 @@
             <div class="m-l-24 m-r-24">
               <div class="m-t-24">
                 <!-- Title -->
-                <div class="t-h6 c-text-black-disabled">{{news.title}}</div>
-                <div class="t-subtitle1 c-text-black-disabled m-t-8">{{news.date.replace(/\-/g,".")}}</div>
+                <div class="t-h6 c-text-black-disabled">
+                  {{ news.title }}
+                </div>
+                <div class="t-subtitle1 c-text-black-disabled m-t-8">
+                  {{ news.date.replace(/\-/g, ".") }}
+                </div>
 
-                <div class="article-list m-t-24" v-html="md.render(news.markdown)" />
-
+                <div
+                  class="article-list m-t-24"
+                  v-html="md.render(news.markdown)"
+                />
               </div>
             </div>
           </div>
@@ -56,20 +66,20 @@
 </template>
 <script>
 import MarkdownIt from "markdown-it";
-import newsList from './data';
+import newsList from "./data";
 
 export default {
-  head() {
-    return {
-      title: [this.news.title, this.defaultTitle].join(" / "),
-    };
-  },
   data() {
     const newsId = this.$route.params.newsId;
     const news = newsList.find(element => element.date === newsId);
     return {
       md: new MarkdownIt(),
-      news,
+      news
+    };
+  },
+  head() {
+    return {
+      title: [this.news.title, this.defaultTitle].join(" / ")
     };
   }
 };

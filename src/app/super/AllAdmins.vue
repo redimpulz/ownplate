@@ -14,22 +14,37 @@
 
       <tr v-for="admin in admins" :key="admin.id">
         <td style="padding-right:8px">
-          <nuxt-link :to="`/s/admins/${admin.id}`">{{admin.name || "(no name)"}}</nuxt-link>
+          <nuxt-link :to="`/s/admins/${admin.id}`">
+            {{ admin.name || "(no name)" }}
+          </nuxt-link>
         </td>
-        <td style="padding-right:8px">{{profile(admin).email}}</td>
-        <td style="padding-right:8px">{{admin.admin ? "A" : ""}}</td>
-        <td style="padding-right:8px">{{admin.operator ? "O" : ""}}</td>
+        <td style="padding-right:8px">
+          {{ profile(admin).email }}
+        </td>
+        <td style="padding-right:8px">
+          {{ admin.admin ? "A" : "" }}
+        </td>
+        <td style="padding-right:8px">
+          {{ admin.operator ? "O" : "" }}
+        </td>
         <td
           v-if="payment(admin).verified === false"
           style="color:red;padding-right:8px"
-        >{{payment(admin).stripe}}</td>
-        <td style="padding-right:8px" v-else>{{payment(admin).stripe}}</td>
+        >
+          {{ payment(admin).stripe }}
+        </td>
+        <td v-else style="padding-right:8px">
+          {{ payment(admin).stripe }}
+        </td>
         <td style="padding-right:8px">
-          {{capabilities(admin).jcb_payments}}
-          <b-button v-if="showActivate(admin)" @click="activate(admin)">Activate</b-button>
+          {{ capabilities(admin).jcb_payments }}
+          <b-button v-if="showActivate(admin)" @click="activate(admin)">
+            Activate
+          </b-button>
         </td>
       </tr>
     </table>
+
     <div>
       <b-button @click="updateQuery">
         <span v-if="last">Next</span>

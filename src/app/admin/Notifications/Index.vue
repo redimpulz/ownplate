@@ -2,17 +2,17 @@
   <div>
     <!-- Notification Settings Button -->
     <notification-setting-button
-      :notificationData="notificationData || defaultNotificationData"
+      :notification-data="notificationData || defaultNotificationData"
       @openNotificationSettings="openNotificationSettings"
     />
 
     <!-- Notification Settings Popup-->
     <notification-settings
-      :shopInfo="shopInfo"
-      :notificationData="notificationData"
-      :NotificationSettingsPopup="NotificationSettingsPopup"
-      @close="closeNotificationSettings"
       v-if="notificationData"
+      :shop-info="shopInfo"
+      :notification-data="notificationData"
+      :notification-settings-popup="NotificationSettingsPopup"
+      @close="closeNotificationSettings"
     />
   </div>
 </template>
@@ -24,15 +24,15 @@ import NotificationSettings from "./NotificationSettings";
 import NotificationSettingButton from "./NotificationSettingButton";
 
 export default {
+  components: {
+    NotificationSettings,
+    NotificationSettingButton
+  },
   props: {
     shopInfo: {
       type: Object,
       required: true
     }
-  },
-  components: {
-    NotificationSettings,
-    NotificationSettingButton
   },
   data() {
     return {

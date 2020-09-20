@@ -71,4 +71,4 @@ export default {
       return tmp + 1;
     }
   }
-}
+};

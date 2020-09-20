@@ -9,13 +9,19 @@
         <div class="columns is-gaplress">
           <div class="column is-half is-offset-one-quarter">
             <div class="m-l-24 m-r-24">
-              <div class="bg-surface r-8 d-low m-t-24 p-l-24 p-r-24 p-t-24 p-b-24">
+              <div
+                class="bg-surface r-8 d-low m-t-24 p-l-24 p-r-24 p-t-24 p-b-24"
+              >
                 <form @submit.prevent="onSignin">
-                  <div class="t-h6 c-text-black-disabled">{{ $t('admin.pleaseSignIn') }}</div>
+                  <div class="t-h6 c-text-black-disabled">
+                    {{ $t("admin.pleaseSignIn") }}
+                  </div>
 
                   <!-- Email -->
                   <div class="m-t-16">
-                    <div class="t-subtitle2 c-text-black-medium m-b-4">{{ $t('admin.email') }}</div>
+                    <div class="t-subtitle2 c-text-black-medium m-b-4">
+                      {{ $t("admin.email") }}
+                    </div>
                     <b-field
                       :type="errors.email ? 'is-danger' : 'is-success'"
                       :message="errors.email && $t(errors.email[0])"
@@ -30,7 +36,9 @@
 
                   <!-- Password -->
                   <div>
-                    <div class="t-subtitle2 c-text-black-medium m-b-4">{{ $t('admin.password') }}</div>
+                    <div class="t-subtitle2 c-text-black-medium m-b-4">
+                      {{ $t("admin.password") }}
+                    </div>
                     <b-field
                       :type="errors.password ? 'is-danger' : 'is-success'"
                       :message="errors.password && $t(errors.password[0])"
@@ -47,11 +55,19 @@
 
                   <!-- Submit Button -->
                   <div class="m-t-8 align-center">
-                    <b-button class="b-reset op-button-small tertiary m-r-16" @click="handleCancel">
-                      <span class="c-text-black-medium">{{ $t('button.cancel') }}</span>
+                    <b-button
+                      class="b-reset op-button-small tertiary m-r-16"
+                      @click="handleCancel"
+                    >
+                      <span class="c-text-black-medium">
+                        {{ $t("button.cancel") }}
+                      </span>
                     </b-button>
-                    <b-button class="b-reset op-button-small primary" @click="onSignin">
-                      <span class="c-onprimary">{{ $t('button.next') }}</span>
+                    <b-button
+                      class="b-reset op-button-small primary"
+                      @click="onSignin"
+                    >
+                      <span class="c-onprimary">{{ $t("button.next") }}</span>
                     </b-button>
                   </div>
 
@@ -60,7 +76,9 @@
                     <router-link to="/admin/user/signup">
                       <div class="op-button-text">
                         <i class="material-icons c-primary">person_add_alt_1</i>
-                        <span class="c-primary t-button">{{$t('admin.pleaseSignUp')}}</span>
+                        <span class="c-primary t-button">
+                          {{ $t("admin.pleaseSignUp") }}
+                        </span>
                       </div>
                     </router-link>
                   </div>
@@ -70,7 +88,9 @@
                     <router-link to="/admin/user/reset">
                       <div class="op-button-text">
                         <i class="material-icons c-primary">help</i>
-                        <span class="c-primary t-button">{{$t('admin.forgotPassword')}}</span>
+                        <span class="c-primary t-button">
+                          {{ $t("admin.forgotPassword") }}
+                        </span>
                       </div>
                     </router-link>
                   </div>

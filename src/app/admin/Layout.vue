@@ -2,15 +2,15 @@
   <div>
     <!-- Notification Settings Popup-->
     <notification-settings
-      :notificationData="notificationConfig"
-      :NotificationSettingsPopup="NotificationSettingsPopup"
-      @close="closeNotificationSettings"
       v-if="NotificationSettingsPopup"
+      :notification-data="notificationConfig"
+      :notification-settings-popup="NotificationSettingsPopup"
+      @close="closeNotificationSettings"
     />
     <router-view></router-view>
     <notification-watcher />
-    <sound-config-watcher :notificationConfig="notificationConfig" />
-    <new-order-watcher :notificationConfig="notificationConfig" />
+    <sound-config-watcher :notification-config="notificationConfig" />
+    <new-order-watcher :notification-config="notificationConfig" />
   </div>
 </template>
 

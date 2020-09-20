@@ -15,8 +15,12 @@
             <div
               class="bg-status-red-bg r-8 p-l-16 p-r-16 p-t-16 p-b-16 align-center m-l-24 m-r-24 m-t-24"
             >
-              <div class="t-subtitle1 c-status-red">{{$t("shopInfo.thisIsPreview")}}</div>
-              <div class="t-subtitle1 c-status-red">{{$t("shopInfo.notPublic")}}</div>
+              <div class="t-subtitle1 c-status-red">
+                {{ $t("shopInfo.thisIsPreview") }}
+              </div>
+              <div class="t-subtitle1 c-status-red">
+                {{ $t("shopInfo.notPublic") }}
+              </div>
             </div>
             <div class="is-hidden-tablet h-24"></div>
           </div>
@@ -37,8 +41,14 @@
               <div class="column">
                 <div class="is-hidden-mobile h-24"></div>
                 <div class="bg-form h-192">
-                  <img :src="coverImage" class="h-192 w-full cover is-hidden-tablet" />
-                  <img :src="coverImage" class="h-192 w-full cover r-8 is-hidden-mobile" />
+                  <img
+                    :src="coverImage"
+                    class="h-192 w-full cover is-hidden-tablet"
+                  />
+                  <img
+                    :src="coverImage"
+                    class="h-192 w-full cover r-8 is-hidden-mobile"
+                  />
                 </div>
               </div>
               <div class="column is-narrow w-24"></div>
@@ -47,18 +57,25 @@
             <!-- Restaurant Details -->
             <div class="m-l-24 m-r-24">
               <!-- Restaurant Profile Photo and Name -->
-              <shop-header :shopInfo="shopInfo"></shop-header>
+              <shop-header :shop-info="shopInfo"></shop-header>
 
               <!-- Restaurant Descriptions -->
-              <div class="t-body1 c-text-black-medium m-t-8">{{ this.shopInfo.introduction }}</div>
+              <div class="t-body1 c-text-black-medium m-t-8">
+                {{ this.shopInfo.introduction }}
+              </div>
 
               <!-- Share Popup -->
-              <share-popup :shopInfo="shopInfo" class="align-center m-t-8"></share-popup>
+              <share-popup
+                :shop-info="shopInfo"
+                class="align-center m-t-8"
+              ></share-popup>
 
               <!-- Restaurant Info -->
-              <shop-info :shopInfo="shopInfo" :paymentInfo="paymentInfo"
-                         @noAvailableTime="noAvailableTime=$event"
-                         ></shop-info>
+              <shop-info
+                :shop-info="shopInfo"
+                :payment-info="paymentInfo"
+                @noAvailableTime="noAvailableTime = $event"
+              ></shop-info>
             </div>
           </div>
 
@@ -70,17 +87,19 @@
                 <template v-for="itemId in menuLists">
                   <div v-if="itemsObj[itemId]" :key="itemId">
                     <div
-                      class="t-h6 c-text-black-disabled m-t-24"
                       v-if="itemsObj[itemId]._dataType === 'title'"
-                    >{{ itemsObj[itemId].name }}</div>
+                      class="t-h6 c-text-black-disabled m-t-24"
+                    >
+                      {{ itemsObj[itemId].name }}
+                    </div>
                     <item-card
                       v-if="itemsObj[itemId]._dataType === 'menu'"
                       :item="itemsObj[itemId]"
                       :count="orders[itemId] || 0"
-                      :optionPrev="optionsPrev[itemId]"
-                      :initialOpenMenuFlag="(orders[itemId] || 0) > 0"
-                      :shopInfo="shopInfo"
-                      :isOpen="menuId === itemId"
+                      :option-prev="optionsPrev[itemId]"
+                      :initial-open-menu-flag="(orders[itemId] || 0) > 0"
+                      :shop-info="shopInfo"
+                      :is-open="menuId === itemId"
                       @didCountChange="didCountChange($event)"
                       @didOptionValuesChange="didOptionValuesChange($event)"
                     ></item-card>
@@ -97,7 +116,7 @@
       <!-- Phone Login-->
       <b-modal :active.sync="loginVisible" :width="488" scroll="keep">
         <div class="op-dialog p-t-24 p-l-24 p-r-24 p-b-24">
-          <phone-login v-on:dismissed="handleDismissed" />
+          <phone-login @dismissed="handleDismissed" />
         </div>
       </b-modal>
 
@@ -108,27 +127,33 @@
         class="w-full h-full bg-dialog-overlay"
       ></div>
       <b-button
+        v-if="0 != totalCount"
         class="b-reset op-button-large primary"
         style="width: 288px; position: fixed; bottom: 32px; left: 50%; margin-left: -144px;"
-        v-if="0 != totalCount"
         :loading="isCheckingOut"
         :disabled="isCheckingOut || noPaymentMethod || noAvailableTime"
         @click="handleCheckOut"
       >
         <div class="is-flex flex-center">
           <template v-if="noPaymentMethod">
-            <div class="flex-1 align-center c-onprimary">{{ $t("shopInfo.noPaymentMethod") }}</div>
+            <div class="flex-1 align-center c-onprimary">
+              {{ $t("shopInfo.noPaymentMethod") }}
+            </div>
           </template>
           <template v-else-if="noAvailableTime">
-            <div class="flex-1 align-center c-onprimary">{{ $t("shopInfo.noAvailableTime") }}</div>
+            <div class="flex-1 align-center c-onprimary">
+              {{ $t("shopInfo.noAvailableTime") }}
+            </div>
           </template>
           <template v-else="!noPaymentMethod">
             <div class="flex-1 align-left c-onprimary m-r-16">
               {{
-              $tc("sitemenu.orderCounter", totalCount, { count: totalCount })
+                $tc("sitemenu.orderCounter", totalCount, { count: totalCount })
               }}
             </div>
-            <div class="m-r-8 c-onprimary">{{ $t("sitemenu.checkout") }}</div>
+            <div class="m-r-8 c-onprimary">
+              {{ $t("sitemenu.checkout") }}
+            </div>
             <i class="material-icons c-onprimary">shopping_cart</i>
           </template>
         </div>
@@ -161,17 +186,6 @@ export default {
     ShopInfo,
     NotFound
   },
-  head() {
-    // TODO: add area to header
-    return {
-      title:
-        Object.keys(this.shopInfo).length == 0
-          ? document.title
-          : [this.shopInfo.restaurantName || "", ownPlateConfig.restaurantPageTitle || this.defaultTitle].join(
-              " / "
-            )
-    };
-  },
   data() {
     return {
       retryCount: 0,
@@ -193,8 +207,63 @@ export default {
       notFound: null,
 
       paymentInfo: {},
-      noAvailableTime: false,
+      noAvailableTime: false
     };
+  },
+  computed: {
+    isPreview() {
+      return this.notFound && this.isOwner;
+    },
+    isOwner() {
+      return this.isAdmin && this.uid === this.shopInfo.uid;
+    },
+    uid() {
+      return this.$store.getters.uid;
+    },
+    totalCount() {
+      const ret = Object.keys(this.orders).reduce((total, id) => {
+        return total + this.orders[id];
+      }, 0);
+      return ret;
+    },
+    itemsObj() {
+      return this.array2obj(this.menus.concat(this.titles));
+    },
+    menuLists() {
+      const list = this.shopInfo.menuLists || [];
+      return list;
+    },
+    trimmedOptions() {
+      return Object.keys(this.orders).reduce((ret, id) => {
+        ret[id] = this.options[id];
+        return ret;
+      }, {});
+    },
+    coverImage() {
+      return (
+        (this.shopInfo?.images?.cover?.resizedImages || {})["1200"] ||
+        this.shopInfo.restCoverPhoto
+      );
+    },
+    menuId() {
+      return this.$route.params.menuId;
+    },
+    noPaymentMethod() {
+      // MEMO: ignore hidePayment. No longer used
+      return !this.paymentInfo.stripe && !this.paymentInfo.inStore;
+    }
+  },
+  watch: {
+    tabIndex() {
+      this.$router.push(this.tabs[this.tabIndex]);
+    },
+    user(newValue) {
+      console.log("user changed");
+      if (this.waitForUser && newValue) {
+        console.log("handling deferred notification");
+        this.goCheckout();
+      }
+    }
   },
   mounted() {
     const index = this.tabs.findIndex(tab => tab === this.$route.hash);
@@ -261,61 +330,6 @@ export default {
       this.detacher.map(detacher => {
         detacher();
       });
-    }
-  },
-  watch: {
-    tabIndex() {
-      this.$router.push(this.tabs[this.tabIndex]);
-    },
-    user(newValue) {
-      console.log("user changed");
-      if (this.waitForUser && newValue) {
-        console.log("handling deferred notification");
-        this.goCheckout();
-      }
-    }
-  },
-  computed: {
-    isPreview() {
-      return this.notFound && this.isOwner;
-    },
-    isOwner() {
-      return this.isAdmin && this.uid === this.shopInfo.uid;
-    },
-    uid() {
-      return this.$store.getters.uid;
-    },
-    totalCount() {
-      const ret = Object.keys(this.orders).reduce((total, id) => {
-        return total + this.orders[id];
-      }, 0);
-      return ret;
-    },
-    itemsObj() {
-      return this.array2obj(this.menus.concat(this.titles));
-    },
-    menuLists() {
-      const list = this.shopInfo.menuLists || [];
-      return list;
-    },
-    trimmedOptions() {
-      return Object.keys(this.orders).reduce((ret, id) => {
-        ret[id] = this.options[id];
-        return ret;
-      }, {});
-    },
-    coverImage() {
-      return (
-        (this.shopInfo?.images?.cover?.resizedImages || {})["1200"] ||
-        this.shopInfo.restCoverPhoto
-      );
-    },
-    menuId() {
-      return this.$route.params.menuId;
-    },
-    noPaymentMethod() {
-      // MEMO: ignore hidePayment. No longer used
-      return !this.paymentInfo.stripe && !this.paymentInfo.inStore;
     }
   },
   methods: {
@@ -421,6 +435,18 @@ export default {
       this.options = Object.assign({}, this.options, obj);
       //console.log(this.options);
     }
+  },
+  head() {
+    // TODO: add area to header
+    return {
+      title:
+        Object.keys(this.shopInfo).length == 0
+          ? document.title
+          : [
+              this.shopInfo.restaurantName || "",
+              ownPlateConfig.restaurantPageTitle || this.defaultTitle
+            ].join(" / ")
+    };
   }
 };
 </script>

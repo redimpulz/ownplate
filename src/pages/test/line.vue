@@ -1,12 +1,14 @@
 <template>
   <section class="section">
-    <h1 class="m-b-8">Line Test</h1>
+    <h1 class="m-b-8">
+      Line Test
+    </h1>
     <div v-if="user">
-      <p>uid:{{user.uid}}</p>
-      <p>displayName:{{user.displayName}}</p>
-      <p>phone:{{user.phoneNumber}}</p>
-      <p>email:{{user.email}}</p>
-      <p>photoURL:{{user.photoURL}}</p>
+      <p>uid:{{ user.uid }}</p>
+      <p>displayName:{{ user.displayName }}</p>
+      <p>phone:{{ user.phoneNumber }}</p>
+      <p>email:{{ user.email }}</p>
+      <p>photoURL:{{ user.photoURL }}</p>
     </div>
     <p class="m-t-16 m-b-16">
       <a :href="lineAuth">Line Login</a>
@@ -30,6 +32,31 @@ import { ownPlateConfig } from "@/config/project";
 import { db, auth, firestore, functions } from "~/plugins/firebase.js";
 
 export default {
+  computed: {
+    code() {
+      return this.$route.query.code;
+    },
+    redirect_uri() {
+      return location.origin + "/test/line";
+    },
+    lineAuth() {
+      const query = {
+        response_type: "code",
+        client_id: ownPlateConfig.line.LOGIN_CHANNEL_ID,
+        redirect_uri: this.redirect_uri,
+        scope: "profile openid email",
+        state: "s" + Math.random(),
+        nonce: location.href
+        //nonce: "u" + Math.random()
+      };
+      const queryString = Object.keys(query)
+        .map(key => {
+          return key + "=" + encodeURIComponent(query[key]);
+        })
+        .join("&");
+      return `https://access.line.me/oauth2/v2.1/authorize?${queryString}`;
+    }
+  },
   async mounted() {
     console.log(this.user);
     if (this.code) {
@@ -65,31 +92,6 @@ export default {
       } catch (error) {
         console.error(error.message, error.details);
       }
-    }
-  },
-  computed: {
-    code() {
-      return this.$route.query.code;
-    },
-    redirect_uri() {
-      return location.origin + "/test/line";
-    },
-    lineAuth() {
-      const query = {
-        response_type: "code",
-        client_id: ownPlateConfig.line.LOGIN_CHANNEL_ID,
-        redirect_uri: this.redirect_uri,
-        scope: "profile openid email",
-        state: "s" + Math.random(),
-        nonce: location.href
-        //nonce: "u" + Math.random()
-      };
-      const queryString = Object.keys(query)
-        .map(key => {
-          return key + "=" + encodeURIComponent(query[key]);
-        })
-        .join("&");
-      return `https://access.line.me/oauth2/v2.1/authorize?${queryString}`;
     }
   }
 };

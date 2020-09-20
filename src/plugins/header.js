@@ -10,13 +10,13 @@ const link = [
   },
   {
     rel: "icon",
-    sizes: '16x16',
+    sizes: "16x16",
     type: "image/x-icon",
     href: "/favicon-16x16.png"
   },
   {
     rel: "icon",
-    sizes: '32x32',
+    sizes: "32x32",
     type: "image/x-icon",
     href: "/favicon-32x32.png"
   },
@@ -26,19 +26,20 @@ const link = [
   },
   {
     rel: "icon",
-    sizes: '192x192',
+    sizes: "192x192",
     type: "image/png",
     href: "/android-chrome-192x192.png"
   },
   {
     rel: "icon",
-    sizes: '512x512',
+    sizes: "512x512",
     type: "image/png",
     href: "/android-chrome-512x512.png"
   },
   {
     rel: "stylesheet",
-    href: "https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css"
+    href:
+      "https://cdn.materialdesignicons.com/2.5.94/css/materialdesignicons.min.css"
   },
   {
     rel: "stylesheet",
@@ -46,13 +47,11 @@ const link = [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+    href: "https://fonts.googleapis.com/icon?family=Material+Icons"
   }
 ];
 
-const script = [
-  { src: "https://js.stripe.com/v3/" },
-];
+const script = [{ src: "https://js.stripe.com/v3/" }];
 
 export const RestaurantHeader = {
   title: ownPlateConfig.siteName || process.env.npm_package_name,
@@ -63,7 +62,7 @@ export const RestaurantHeader = {
     { hid: "description" },
     { hid: "og:image" }
   ],
-  link,
+  link
 };
 
 export const defaultHeader = {
@@ -71,16 +70,24 @@ export const defaultHeader = {
   script,
   meta: [
     {
-      hid: 'og:image', property: 'og:image', content: 'https://' + hostName + '/' +
-        (ownPlateConfig.region === "JP" ? 'PR-Feature.png' : 'OGP-Facebook.png')
+      hid: "og:image",
+      property: "og:image",
+      content:
+        "https://" +
+        hostName +
+        "/" +
+        (ownPlateConfig.region === "JP" ? "PR-Feature.png" : "OGP-Facebook.png")
     },
     { charset: "utf-8" },
     { name: "viewport", content: "width=device-width, initial-scale=1" },
     {
       hid: "description",
       name: "description",
-      content: ownPlateConfig.siteDescription || process.env.npm_package_description || ""
+      content:
+        ownPlateConfig.siteDescription ||
+        process.env.npm_package_description ||
+        ""
     }
   ],
-  link,
+  link
 };

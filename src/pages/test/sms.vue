@@ -1,8 +1,8 @@
 <template>
   <section class="section">
-    <p>{{ "date:" + $d(date) + " " + (date.getMinutes()) }}</p>
+    <p>{{ "date:" + $d(date) + " " + date.getMinutes() }}</p>
     <div v-show="user !== null">
-      <h2>Phone: {{phone}}</h2>
+      <h2>Phone: {{ phone }}</h2>
       <p>Try "Sign Out" from the menu.</p>
     </div>
     <phone-login v-show="!user" />
@@ -22,9 +22,6 @@ export default {
       dismissed: false
     };
   },
-  mounted() {
-    console.log(this.$store.state.date);
-  },
   computed: {
     date() {
       return this.$store.state.date;
@@ -32,6 +29,9 @@ export default {
     phone() {
       return this.user && this.user.phoneNumber;
     }
+  },
+  mounted() {
+    console.log(this.$store.state.date);
   }
 };
 </script>

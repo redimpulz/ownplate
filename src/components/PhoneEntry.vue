@@ -4,9 +4,11 @@
       <b-select v-model="countryCode">
         <option
           v-for="country in countries"
-          :value="country.code"
           :key="country.code"
-        >{{ $t(country.name) }}</option>
+          :value="country.code"
+        >
+          {{ $t(country.name) }}
+        </option>
       </b-select>
     </b-field>
     <b-field
@@ -15,10 +17,10 @@
       :label="label"
     >
       <b-input
-        type="text"
         v-model="phoneNumber"
-        v-on:input="validatePhoneNumber"
+        type="text"
         :placeholder="placeholder"
+        @input="validatePhoneNumber"
       />
     </b-field>
   </div>
@@ -53,12 +55,6 @@ export default {
       phoneNumber: this.currentNumber
     };
   },
-  mounted() {
-    // BUGBUG: This code is sufficient for US and JP, but not for EU
-    this.countryCode = this.countries[0].code;
-    //console.log("countryCode:mount", this.countryCode);
-    this.validatePhoneNumber();
-  },
   computed: {
     countries() {
       return this.$store.getters.stripeRegion.countries;
@@ -66,6 +62,12 @@ export default {
     hasError() {
       return this.errors.length > 0;
     }
+  },
+  mounted() {
+    // BUGBUG: This code is sufficient for US and JP, but not for EU
+    this.countryCode = this.countries[0].code;
+    //console.log("countryCode:mount", this.countryCode);
+    this.validatePhoneNumber();
   },
   methods: {
     // BUGBUG: This code is fine for US and JP, but not sufficient for EU

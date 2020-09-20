@@ -6,13 +6,19 @@
       <tr v-for="log in logs" :key="log.id">
         <td class="p-b-4">
           {{ log.cmd }}
-          <div class="m-l-8">{{log.key}} {{log.value}}</div>
+          <div class="m-l-8">{{ log.key }} {{ log.value }}</div>
         </td>
-        <td class="p-l-8">{{log.success ? "success": log.error}}</td>
         <td class="p-l-8">
-          <nuxt-link :to="`/s/admins/${log.uid}`">{{log.email || log.uid}}</nuxt-link>
+          {{ log.success ? "success" : log.error }}
         </td>
-        <td class="p-l-8">{{log.uidSuper.slice(0,8) + "..."}}</td>
+        <td class="p-l-8">
+          <nuxt-link :to="`/s/admins/${log.uid}`">
+            {{ log.email || log.uid }}
+          </nuxt-link>
+        </td>
+        <td class="p-l-8">
+          {{ log.uidSuper.slice(0, 8) + "..." }}
+        </td>
       </tr>
     </table>
   </section>

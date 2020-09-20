@@ -67,7 +67,7 @@ export default {
     },
     handleDownload() {
       const blob = new Blob([this.content], {
-        type: `application/csv`
+        type: "application/csv"
       });
       const link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);

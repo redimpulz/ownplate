@@ -8,8 +8,7 @@ const releaseConfigs = {
     hidePayment: true,
     hideUsersLink: true
   },
-  beta: {
-  },
+  beta: {},
   "beta-dev": {
     underConstruction: true
   }

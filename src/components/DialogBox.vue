@@ -10,13 +10,21 @@
         <div v-if="error">
           <!-- Message -->
           <div class="align-center m-t-16">
-            <div class="t-h6 c-text-black-medium">{{ $t("errorPage.popup.title") }}</div>
-            <div class="m-t-8">{{ errorMessage }}</div>
-            <div class="m-t-8">{{ $t(errorMessage2) }}</div>
+            <div class="t-h6 c-text-black-medium">
+              {{ $t("errorPage.popup.title") }}
+            </div>
+            <div class="m-t-8">
+              {{ errorMessage }}
+            </div>
+            <div class="m-t-8">
+              {{ $t(errorMessage2) }}
+            </div>
           </div>
           <!-- Buttons -->
           <div class="m-t-24 align-center">
-            <div class="op-button-small tertiary" @click="close">{{ $t("menu.close") }}</div>
+            <div class="op-button-small tertiary" @click="close">
+              {{ $t("menu.close") }}
+            </div>
           </div>
         </div>
 
@@ -24,15 +32,21 @@
         <div v-if="alert">
           <!-- Message -->
           <div class="align-center m-t-16">
-            <div class="t-h6 c-text-black-medium">{{ $t(alert.code) }}</div>
+            <div class="t-h6 c-text-black-medium">
+              {{ $t(alert.code) }}
+            </div>
           </div>
           <!-- Buttons -->
           <div class="m-t-24 align-center">
-            <div class="op-button-small tertiary m-r-16" @click="close">{{ $t("menu.no") }}</div>
+            <div class="op-button-small tertiary m-r-16" @click="close">
+              {{ $t("menu.no") }}
+            </div>
             <div
               class="op-button-small bg-status-red c-text-white-full"
               @click="handleYes"
-            >{{ $t("menu.yes") }}</div>
+            >
+              {{ $t("menu.yes") }}
+            </div>
           </div>
         </div>
       </div>
@@ -54,16 +68,6 @@ export default {
       isVisible: true
     };
   },
-  watch: {
-    dialog() {
-      this.isVisible = true; // so that we can re-use this component
-    },
-    isVisible(newValue) {
-      if (!newValue) {
-        this.$store.commit("resetDialog");
-      }
-    }
-  },
   computed: {
     alert() {
       return this.dialog?.alert;
@@ -82,6 +86,16 @@ export default {
     },
     errorMessage2() {
       return this.error.message2 || "errorPage.message.generic";
+    }
+  },
+  watch: {
+    dialog() {
+      this.isVisible = true; // so that we can re-use this component
+    },
+    isVisible(newValue) {
+      if (!newValue) {
+        this.$store.commit("resetDialog");
+      }
     }
   },
   methods: {

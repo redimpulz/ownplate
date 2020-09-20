@@ -1,7 +1,13 @@
 <template>
   <div>
-    <div class="t-h6 c-text-black-disabled align-center m-t-24">{{ $t('line.authenticating')}}</div>
-    <b-loading :is-full-page="false" :active="isProcessing" :can-cancel="true"></b-loading>
+    <div class="t-h6 c-text-black-disabled align-center m-t-24">
+      {{ $t("line.authenticating") }}
+    </div>
+    <b-loading
+      :is-full-page="false"
+      :active="isProcessing"
+      :can-cancel="true"
+    ></b-loading>
   </div>
 </template>
 

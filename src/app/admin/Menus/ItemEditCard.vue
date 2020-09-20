@@ -4,9 +4,11 @@
     <div class="bg-surface r-8 d-low m-t-8">
       <div class="touchable cols" @click="linkEdit">
         <div class="flex-1 p-l-16 p-r-16 p-t-16 p-b-16">
-          <div class="t-h6 c-text-black-high">{{ menuitem.itemName }}</div>
+          <div class="t-h6 c-text-black-high">
+            {{ menuitem.itemName }}
+          </div>
           <div class="t-body1 c-text-black-high m-t-8">
-            <Price :shopInfo="shopInfo" :menu="menuitem" />
+            <Price :shop-info="shopInfo" :menu="menuitem" />
           </div>
 
           <!-- # Need to add *** v-if="menuitem.itemDescription !== null" ***? -->
@@ -41,44 +43,44 @@
         <div class="flex-1">
           <!-- Position Up -->
           <b-button
-            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             v-if="position !== 'first'"
+            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             @click="positionUp"
           >
-            <i class="material-icons c-primary s-18 p-l-8 p-r-8"
-              >arrow_upward</i
-            >
+            <i class="material-icons c-primary s-18 p-l-8 p-r-8">
+              >arrow_upward
+            </i>
           </b-button>
           <!-- Disable if First -->
           <b-button
+            v-else
             class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             disabled
-            v-else
           >
-            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8"
-              >arrow_upward</i
-            >
+            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8">
+              >arrow_upward
+            </i>
           </b-button>
 
           <!-- Position Down -->
           <b-button
-            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             v-if="position !== 'last'"
+            class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             @click="positionDown"
           >
-            <i class="material-icons c-primary s-18 p-l-8 p-r-8"
-              >arrow_downward</i
-            >
+            <i class="material-icons c-primary s-18 p-l-8 p-r-8">
+              >arrow_downward
+            </i>
           </b-button>
           <!-- Disable if Last -->
           <b-button
+            v-else
             class="b-reset op-button-pill h-36 bg-primary-bg m-r-8"
             disabled
-            v-else
           >
-            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8"
-              >arrow_downward</i
-            >
+            <i class="material-icons c-text-black-disabled s-18 p-l-8 p-r-8">
+              >arrow_downward
+            </i>
           </b-button>
 
           <!-- Duplicate -->
@@ -124,6 +126,12 @@ export default {
       required: true
     }
   },
+  data() {
+    console.log(this.shopInfo);
+    return {
+      counter: 0
+    };
+  },
   computed: {
     image() {
       return (
@@ -131,12 +139,6 @@ export default {
         this.menuitem.itemPhoto
       );
     }
-  },
-  data() {
-    console.log(this.shopInfo);
-    return {
-      counter: 0
-    };
   },
   methods: {
     linkEdit() {

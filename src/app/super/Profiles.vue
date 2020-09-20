@@ -3,12 +3,16 @@
     <back-button url="/s" />
     <h2>Profiles</h2>
     <b-input v-model="prefix" placeholder="email prefix"></b-input>
-    <b-button @click="handleSearch">Search</b-button>
+    <b-button @click="handleSearch">
+      Search
+    </b-button>
     <table>
       <tr v-for="profile in profiles" :key="profile.uid">
-        <td>{{profile.email}}</td>
+        <td>{{ profile.email }}</td>
         <td>
-          <nuxt-link :to="`/s/admins/${profile.uid}`">{{profile.uid}}</nuxt-link>
+          <nuxt-link :to="`/s/admins/${profile.uid}`">
+            {{ profile.uid }}
+          </nuxt-link>
         </td>
       </tr>
     </table>

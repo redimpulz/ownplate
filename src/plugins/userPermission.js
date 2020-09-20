@@ -1,19 +1,7 @@
-import Vue from 'vue';
+import Vue from "vue";
 
-export default ({app}) => {
+export default ({ app }) => {
   Vue.mixin({
-    methods: {
-      checkAdminPermission() {
-        if (!(this.$store.getters.uidAdmin)) {
-          this.$router.replace('/admin/user/signin');
-        }
-      },
-      checkUserPermission() {
-        if (!(this.$store.getters.uidUser)) {
-          this.$router.replace('/admin/user/signin');
-        }
-      },
-    },
     computed: {
       isUser() {
         return !!this.$store.getters.uidUser;
@@ -25,5 +13,17 @@ export default ({app}) => {
         return this.$store.getters.isNotOperator;
       }
     },
+    methods: {
+      checkAdminPermission() {
+        if (!this.$store.getters.uidAdmin) {
+          this.$router.replace("/admin/user/signin");
+        }
+      },
+      checkUserPermission() {
+        if (!this.$store.getters.uidUser) {
+          this.$router.replace("/admin/user/signin");
+        }
+      }
+    }
   });
-}
+};

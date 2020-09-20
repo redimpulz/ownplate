@@ -5,7 +5,11 @@
     <table>
       <tr v-for="log in logs" :key="log.id">
         <td class="p-b-4">
-          {{moment(log.updatedAt.toDate()).format("YYYY:MM:DD HH:mm")}}/<nuxt-link :to="`/r/${log.restaurantId}`">{{log.restaurantId}}</nuxt-link>/{{ log.orderId }}
+          {{ moment(log.updatedAt.toDate()).format("YYYY:MM:DD HH:mm") }}/
+          <nuxt-link :to="`/r/${log.restaurantId}`">
+            {{ log.restaurantId }}
+          </nuxt-link>
+          /{{ log.orderId }}
         </td>
       </tr>
     </table>

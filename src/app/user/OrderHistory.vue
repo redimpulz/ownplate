@@ -12,7 +12,9 @@
             <!-- Back Button -->
             <back-button url="/u/profile/" class="m-t-24" />
             <!-- Title -->
-            <div class="t-h6 c-text-black-disabled m-t-24">{{$t('order.history')}}</div>
+            <div class="t-h6 c-text-black-disabled m-t-24">
+              {{ $t("order.history") }}
+            </div>
           </div>
         </div>
       </div>
@@ -32,15 +34,15 @@
             <ordered-info
               v-for="order in orders"
               :key="order.id"
-              @selected="orderSelected($event)"
               :order="order"
+              @selected="orderSelected($event)"
             />
           </div>
 
           <!-- Phone Login-->
           <b-modal :active.sync="loginVisible" :width="488" scroll="keep">
             <div class="op-dialog p-t-24 p-l-24 p-r-24 p-b-24">
-              <phone-login v-on:dismissed="handleDismissed" />
+              <phone-login @dismissed="handleDismissed" />
             </div>
           </b-modal>
         </div>
@@ -70,6 +72,16 @@ export default {
       orders: []
     };
   },
+  computed: {
+    uid() {
+      return this.$store.getters.uidUser;
+    }
+  },
+  watch: {
+    uid(newValue) {
+      this.getHistory();
+    }
+  },
   async created() {
     //console.log("created", this.uid);
     this.loginVisible = !this.uid;
@@ -77,16 +89,6 @@ export default {
   },
   destroyed() {
     this.detatcher && this.detatcher();
-  },
-  watch: {
-    uid(newValue) {
-      this.getHistory();
-    }
-  },
-  computed: {
-    uid() {
-      return this.$store.getters.uidUser;
-    }
   },
   methods: {
     getHistory() {

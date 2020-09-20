@@ -2,8 +2,8 @@
   <download-csv
     :data="tableData"
     :fields="fields"
-    :fieldNames="fieldNames"
-    :fileName="$t('order.history')"
+    :field-names="fieldNames"
+    :file-name="$t('order.history')"
   >
     <b-button class="m-t-16 b-reset h-36 r-36 bg-form">
       <span class="p-l-16 p-r-16">

@@ -17,6 +17,22 @@ export default {
       intervalTime: 60 // (seconds)
     };
   },
+  computed: {
+    today() {
+      return midNight(0);
+    },
+    tommorow() {
+      return midNight(1);
+    },
+    hasNewOrder() {
+      return this.orders.length > 0;
+    }
+  },
+  watch: {
+    today() {
+      this.dateWasUpdated();
+    }
+  },
   async created() {
     this.dateWasUpdated();
     this.intervalTask = setInterval(() => {
@@ -34,22 +50,6 @@ export default {
   destroyed() {
     this.order_detacher();
     clearInterval(this.intervalTask);
-  },
-  computed: {
-    today() {
-      return midNight(0);
-    },
-    tommorow() {
-      return midNight(1);
-    },
-    hasNewOrder() {
-      return this.orders.length > 0;
-    }
-  },
-  watch: {
-    today() {
-      this.dateWasUpdated();
-    }
   },
   methods: {
     dateWasUpdated() {

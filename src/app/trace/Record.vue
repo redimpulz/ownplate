@@ -2,18 +2,18 @@
   <section class="section">
     <div v-if="traceId">
       <div v-if="success">
-        <h1>{{$t('trace.thankyou')}}</h1>
+        <h1>{{ $t("trace.thankyou") }}</h1>
       </div>
     </div>
     <div v-else>
       <div v-if="user">
-        <h1>{{$t('trace.thankyou')}}</h1>
+        <h1>{{ $t("trace.thankyou") }}</h1>
         <div class="m-t-16">
           <div v-for="record in records" :key="record.id">
-            <span>{{record.timeCreated.toLocaleString()}}</span>
-            <span>{{$t('trace.' + record.event)}}</span>
-            <span>{{record.processed ? "*" : " "}}</span>
-            <span>{{record.restaurantName}}</span>
+            <span>{{ record.timeCreated.toLocaleString() }}</span>
+            <span>{{ $t("trace." + record.event) }}</span>
+            <span>{{ record.processed ? "*" : " " }}</span>
+            <span>{{ record.restaurantName }}</span>
           </div>
         </div>
       </div>
@@ -34,6 +34,37 @@ export default {
       records: [],
       detatcher: null
     };
+  },
+  computed: {
+    event() {
+      return this.$route.query.event;
+    },
+    traceId() {
+      return this.$route.params.traceId;
+    }
+  },
+  mounted() {
+    if (this.user) {
+      const claims = this.$store.state.claims;
+      if (claims.line) {
+        //console.log("***** DEBUG *****", claims.line);
+        this.record(claims.line);
+        return;
+      }
+    }
+    if (this.traceId) {
+      const url = lineAuthURL(
+        "/callback/track",
+        {
+          traceId: this.traceId
+        },
+        ownPlateConfig.line.TRACK_CHANNEL_ID
+      );
+      location.href = url;
+    }
+  },
+  destroyed() {
+    this.detatcher && this.detatcher();
   },
   methods: {
     async record(lineUid) {
@@ -76,38 +107,6 @@ export default {
           });
       }
     }
-  },
-  mounted() {
-    if (this.user) {
-      const claims = this.$store.state.claims;
-      if (claims.line) {
-        //console.log("***** DEBUG *****", claims.line);
-        this.record(claims.line);
-        return;
-      }
-    }
-    if (this.traceId) {
-      const url = lineAuthURL(
-        "/callback/track",
-        {
-          traceId: this.traceId
-        },
-        ownPlateConfig.line.TRACK_CHANNEL_ID
-      );
-      location.href = url;
-    }
-  },
-  destroyed() {
-    this.detatcher && this.detatcher();
-  },
-  computed: {
-    event() {
-      return this.$route.query.event;
-    },
-    traceId() {
-      return this.$route.params.traceId;
-    }
   }
 };
 </script>
-

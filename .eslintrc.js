@@ -16,7 +16,7 @@ module.exports = {
   plugins: ["vue"],
   // ここにカスタムルールを追加します。
   rules: {
-    "vue/html-indent": ["error", 2],
+    "vue/html-indent": "off",
     "no-console": "off", //console.log();OK
     "no-unused-vars": "off", //使っていない変数あってもOK
     "vue/html-self-closing": "off", //imgタグのようにタグが１つで完結してもOK

@@ -7,6 +7,6 @@ import NotFound from "~/components/NotFound";
 export default {
   components: {
     NotFound
-  },
+  }
 };
 </script>

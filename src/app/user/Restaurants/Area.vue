@@ -11,12 +11,14 @@
           <nuxt-link :to="'/r'">
             <div class="op-button-pill bg-form">
               <i class="material-icons c-primary s-18">list</i>
-              <span class="c-primary t-button">{{$t("find.areaTop")}}</span>
+              <span class="c-primary t-button">{{ $t("find.areaTop") }}</span>
             </div>
           </nuxt-link>
 
           <!-- Title -->
-          <div class="t-h6 c-text-black-disabled m-t-24">{{areaName}}</div>
+          <div class="t-h6 c-text-black-disabled m-t-24">
+            {{ areaName }}
+          </div>
         </div>
       </div>
       <!-- Right Gap -->
@@ -40,14 +42,15 @@
                     <div class="cols flex-center">
                       <!-- Restaurant Profile -->
                       <div class="m-r-16 h-48">
-                        <img :src="resizedProfileImage(restaurant, '600')" class="w-48 h-48 r-48 cover" />
+                        <img
+                          :src="resizedProfileImage(restaurant, '600')"
+                          class="w-48 h-48 r-48 cover"
+                        />
                       </div>
 
                       <!-- Restaurant Name -->
                       <div class="flex-1 p-r-8 t-subtitle1 c-primary">
-                        {{
-                        restaurant.restaurantName
-                        }}
+                        {{ restaurant.restaurantName }}
                       </div>
                     </div>
                   </div>
@@ -70,21 +73,11 @@ import { db, storage, firestore } from "~/plugins/firebase.js";
 import { defaultHeader } from "../../../plugins/header";
 
 export default {
-  head() {
-    return {
-      title: [this.$tc("pageTitle.restaurantArea", 0, {area: this.areaName}), defaultHeader.title].join(" / "),
-    };
-  },
   data() {
     return {
       areaName: "",
       restaurants: []
     };
-  },
-  methods: {
-    areaId() {
-      return this.$route.params.areaId;
-    }
   },
   async created() {
     this.areaName = this.regionalSetting.AddressStates[this.areaId()];
@@ -102,6 +95,19 @@ export default {
         return data;
       });
     }
+  },
+  methods: {
+    areaId() {
+      return this.$route.params.areaId;
+    }
+  },
+  head() {
+    return {
+      title: [
+        this.$tc("pageTitle.restaurantArea", 0, { area: this.areaName }),
+        defaultHeader.title
+      ].join(" / ")
+    };
   }
 };
 </script>

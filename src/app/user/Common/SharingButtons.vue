@@ -1,5 +1,10 @@
 <template>
-  <social-sharing :url="targetURL" :title="title" :hashtags="hashtag" inline-template>
+  <social-sharing
+    :url="targetURL"
+    :title="title"
+    :hashtags="hashtag"
+    inline-template
+  >
     <div>
       <network network="facebook" class="facebook">
         <span style="color:#3b5998; cursor: pointer; padding: 8px;">
